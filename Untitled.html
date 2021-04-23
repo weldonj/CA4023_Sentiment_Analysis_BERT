@@ -1,0 +1,1697 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; CA4023 Assignment 3 - BERT Sentiment Analysis - John Weldon</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/bert.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">CA4023 Assignment 3 - BERT Sentiment Analysis - John Weldon</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro.html">
+   OVERVIEW
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Baseline BERT
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="256_BERT.html">
+   BERT as given in assignment
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT with 512 sequence length and 12 Epochs
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="512_BERT_12.html">
+   BERT with 512 Max Sequence Length and 12 Epochs
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Baseline BERT with Negation
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="256_BERT_NEGATION.html">
+   BERT with Negation Handling
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT vs Assignment 2 Performance
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html">
+   Bigrams with Negation Handling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html#decision-tree">
+   Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html#support-vector-machine">
+   Support Vector Machine
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Conclusion and Learning Outcomes
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="CONCLUSION.html">
+   CA4023_Assignment_3
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/Untitled.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Untitled.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="simple nav section-nav flex-column">
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># choose between &#39;local-tgz&#39; and &#39;web&#39;,</span>
+<span class="c1"># see description under each heading below</span>
+
+<span class="n">data_source</span> <span class="o">=</span> <span class="s1">&#39;local-tgz&#39;</span>
+
+<span class="c1"># adjust path as needed</span>
+
+<span class="n">data_tgz</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;pang-and-lee-2004&#39;</span><span class="p">,</span> <span class="s1">&#39;data.tar.gz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#from collections import defaultdict</span>
+
+<span class="k">class</span> <span class="nc">PL04DataLoader_Part_1</span><span class="p">:</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    
+    <span class="k">def</span> <span class="nf">get_labelled_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fold</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Compile a fold of the data set</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">,</span> <span class="s1">&#39;neg&#39;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_documents</span><span class="p">(</span>
+                <span class="n">fold</span> <span class="o">=</span> <span class="n">fold</span><span class="p">,</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="n">dataset</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">document</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">dataset</span>
+    
+    <span class="k">def</span> <span class="nf">get_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fold</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;pos&#39;</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Enumerate the raw contents of selected data set files.</span>
+<span class="sd">            Args:</span>
+<span class="sd">                data_dir: relative or absolute path to the data set folder</span>
+<span class="sd">                fold: which fold to load (0 to n_folds-1)</span>
+<span class="sd">                label: &#39;pos&#39; or &#39;neg&#39; to</span>
+<span class="sd">                    select data with positive or negative sentiment</span>
+<span class="sd">                    polarity</span>
+<span class="sd">            Return:</span>
+<span class="sd">                List of tokenised documents, each a list of sentences</span>
+<span class="sd">                that in turn are lists of tokens</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PL04DataLoader</span><span class="p">(</span><span class="n">PL04DataLoader_Part_1</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">get_xval_splits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Split data with labels for cross-validation</span>
+<span class="sd">            returns a list of k pairs (training_data, test_data)</span>
+<span class="sd">            for k cross-validation</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># load the folds</span>
+        <span class="n">folds</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">folds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_labelled_dataset</span><span class="p">(</span>
+                <span class="n">fold</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="p">))</span>
+        <span class="c1"># create training-test splits</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">test_data</span> <span class="o">=</span> <span class="n">folds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">training_data</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+                <span class="n">ij1</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span>
+                <span class="k">assert</span> <span class="n">ij1</span> <span class="o">!=</span> <span class="n">i</span>
+                <span class="n">training_data</span> <span class="o">=</span> <span class="n">training_data</span> <span class="o">+</span> <span class="n">folds</span><span class="p">[</span><span class="n">ij1</span><span class="p">]</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">training_data</span><span class="p">,</span> <span class="n">test_data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">retval</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tarfile</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">PL04DataLoaderFromStream</span><span class="p">(</span><span class="n">PL04DataLoader</span><span class="p">):</span>
+        
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tgz_stream</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r|gz&#39;</span><span class="p">,</span>
+            <span class="n">fileobj</span> <span class="o">=</span> <span class="n">tgz_stream</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">tar_archive</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tar_member</span> <span class="ow">in</span> <span class="n">tar_archive</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">counter</span> <span class="o">==</span> <span class="mi">2000</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="n">path_components</span> <span class="o">=</span> <span class="n">tar_member</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">path_components</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;cv&#39;</span><span class="p">)</span> \
+                <span class="ow">and</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">)</span> \
+                <span class="ow">and</span> <span class="s1">&#39;_&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+                    <span class="n">label</span> <span class="o">=</span> <span class="n">path_components</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">fold</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">filename</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">fold</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">f</span> <span class="o">=</span> <span class="n">tar_archive</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="n">tar_member</span><span class="p">)</span>
+                    <span class="n">document</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                    <span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+                    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+    <span class="k">def</span> <span class="nf">get_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fold</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;pos&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">fold</span><span class="p">,</span> <span class="n">label</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PL04DataLoaderFromTGZ</span><span class="p">(</span><span class="n">PL04DataLoaderFromStream</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tgz_stream</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">tgz_stream</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># adjust the torch version below following instructions on https://pytorch.org/get-started/locally/</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># for why we use {sys.executable} see</span>
+<span class="c1"># https://jakevdp.github.io/blog/2017/12/05/installing-python-packages-from-jupyter/</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">torch</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="o">!{</span>sys.executable<span class="o">}</span> -m pip install <span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.7.1+cpu <span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.8.2+cpu <span class="nv">torchaudio</span><span class="o">==</span><span class="m">0</span>.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">transformers</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="o">!{</span>sys.executable<span class="o">}</span> -m pip install transformers
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="o">!{</span>sys.executable<span class="o">}</span> -m pip install pytorch-lightning
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">torchnlp</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="o">!{</span>sys.executable<span class="o">}</span> -m pip install pytorch-nlp
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">tensorboard</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="o">!{</span>sys.executable<span class="o">}</span> -m pip install tensorboard
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ready&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ready
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span>
+<span class="kn">from</span> <span class="nn">tokenizers.pre_tokenizers</span> <span class="kn">import</span> <span class="n">Whitespace</span>
+
+<span class="n">model_size</span> <span class="o">=</span> <span class="s1">&#39;base&#39;</span>  <span class="c1"># choose between &#39;tiny&#39;, &#39;base&#39; and &#39;large&#39;</span>
+
+<span class="n">size2name</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;tiny&#39;</span><span class="p">:</span>  <span class="s1">&#39;distilbert-base-uncased&#39;</span><span class="p">,</span>  <span class="c1"># TODO: This doesn&#39;t seem to reduce memory usage compared to bert-base. </span>
+    <span class="s1">&#39;base&#39;</span><span class="p">:</span>  <span class="s1">&#39;bert-base-uncased&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;large&#39;</span><span class="p">:</span> <span class="s1">&#39;bert-large-uncased&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="n">model_name</span> <span class="o">=</span> <span class="n">size2name</span><span class="p">[</span><span class="n">model_size</span><span class="p">]</span>
+
+<span class="n">force_whitespace_pre_tokeniser</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># should not matter with pre-tokenised P&amp;L&#39;04 input</span>
+
+<span class="n">tokeniser</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+    
+<span class="k">if</span> <span class="n">force_whitespace_pre_tokeniser</span><span class="p">:</span>
+    <span class="n">tokeniser</span><span class="o">.</span><span class="n">pre_tokenizer</span> <span class="o">=</span> <span class="n">Whitespace</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "87488e6dd56444fa9e37985c2aa3a3b5", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "2cc202e6699949868b2102d907a2292f", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "1d054f3b6b03474ebde9f5345f6cc7af", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "da4684899ad34a39838c5bbc910001df", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s test the tokeniser with a small example</span>
+
+<span class="n">example_batch</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;hello world !&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span>
+    <span class="sd">&quot;&quot;&quot;tokenisation &#39;s fun&quot;&quot;&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span>
+<span class="p">]</span>
+
+<span class="n">tokenised_text</span> <span class="o">=</span> <span class="n">tokeniser</span><span class="p">(</span>
+    <span class="n">example_batch</span><span class="p">,</span>  <span class="c1"># pre-tokenised input</span>
+    <span class="n">is_split_into_words</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">token_ids</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tokenised_text</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">[&#39;input_ids&#39;]:&quot;</span><span class="p">,</span> <span class="n">token_ids</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>   <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">tokens:       &#39;</span><span class="p">,</span> <span class="n">tokeniser</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">token_ids</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span>   <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">.word_ids():  &quot;</span><span class="p">,</span> <span class="n">tokenised_text</span><span class="o">.</span><span class="n">word_ids</span><span class="p">(</span><span class="n">batch_index</span> <span class="o">=</span> <span class="n">i</span><span class="p">))</span>
+    <span class="n">example</span> <span class="o">=</span> <span class="n">example_batch</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">example</span><span class="p">:</span>
+        <span class="c1"># https://stackoverflow.com/questions/62317723/tokens-to-words-mapping-in-the-tokenizer-decode-step-huggingface</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%18s</span><span class="s1"> --&gt; </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span>
+            <span class="n">token</span><span class="p">,</span>
+            <span class="n">tokeniser</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+                <span class="n">token</span><span class="p">,</span>
+                <span class="n">add_special_tokens</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 	[&#39;input_ids&#39;]: [101, 7592, 2088, 999, 102]
+	tokens:        [&#39;[CLS]&#39;, &#39;hello&#39;, &#39;world&#39;, &#39;!&#39;, &#39;[SEP]&#39;]
+	.word_ids():   [None, 0, 1, 2, None]
+             hello --&gt; [7592]
+             world --&gt; [2088]
+                 ! --&gt; [999]
+1 	[&#39;input_ids&#39;]: [101, 19204, 6648, 1005, 1055, 4569, 102]
+	tokens:        [&#39;[CLS]&#39;, &#39;token&#39;, &#39;##isation&#39;, &quot;&#39;&quot;, &#39;s&#39;, &#39;fun&#39;, &#39;[SEP]&#39;]
+	.word_ids():   [None, 0, 0, 1, 1, 2, None]
+      tokenisation --&gt; [19204, 6648]
+                &#39;s --&gt; [1005, 1055]
+               fun --&gt; [4569]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if you have sufficient TPU or GPU memory you can increase the sequence length up to 512</span>
+<span class="c1"># (memory requirements will be the highest during fine-tuning of BERT)</span>
+<span class="n">max_sequence_length</span>  <span class="o">=</span> <span class="mi">256</span>
+
+<span class="c1"># memory requirements increase linearly with the batch size;</span>
+<span class="c1"># a batch size of 16, better 32, is needed for efficient training;</span>
+<span class="c1"># however, with little memory, we have to go lower</span>
+<span class="n">batch_size</span>      <span class="o">=</span> <span class="mi">10</span>   <span class="c1"># for a 12 GB card</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+    
+<span class="n">bin_width</span> <span class="o">=</span> <span class="mi">250</span>
+<span class="n">data_loader</span> <span class="o">=</span> <span class="n">PL04DataLoaderFromTGZ</span><span class="p">(</span><span class="s1">&#39;data.tar.gz&#39;</span><span class="p">)</span>
+<span class="n">distribution</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># interate all reviews</span>
+<span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="s1">&#39;pos neg&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">data_loader</span><span class="o">.</span><span class="n">get_documents</span><span class="p">(</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="p">,</span>
+            <span class="n">fold</span> <span class="o">=</span> <span class="n">fold</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">document</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
+                    <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+            <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+        <span class="n">tokenised_batch</span> <span class="o">=</span> <span class="n">tokeniser</span><span class="p">(</span>
+            <span class="n">batch</span><span class="p">,</span>  <span class="c1"># pre-tokenised input</span>
+            <span class="n">is_split_into_words</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">max_length_bin</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">token_ids</span> <span class="ow">in</span> <span class="n">tokenised_batch</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">token_ids</span><span class="p">)</span>
+            <span class="n">length_bin</span> <span class="o">=</span> <span class="n">length</span> <span class="o">//</span> <span class="n">bin_width</span>
+            <span class="n">distribution</span><span class="p">[(</span><span class="n">label</span><span class="p">,</span>   <span class="n">length_bin</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">distribution</span><span class="p">[(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="n">length_bin</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">length_bin</span> <span class="o">&gt;</span> <span class="n">max_length_bin</span><span class="p">:</span>
+                <span class="n">max_length_bin</span> <span class="o">=</span> <span class="n">length_bin</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;LengthBin</span><span class="se">\t</span><span class="s1">Pos</span><span class="se">\t</span><span class="s1">Neg</span><span class="se">\t</span><span class="s1">Total&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">length_bin</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_length_bin</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%4d</span><span class="s1">-</span><span class="si">%4d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span>
+        <span class="n">bin_width</span><span class="o">*</span><span class="n">length_bin</span><span class="p">,</span>
+        <span class="n">bin_width</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">length_bin</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    <span class="p">))</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="s1">&#39;pos neg total&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">distribution</span><span class="p">[(</span><span class="n">label</span><span class="p">,</span> <span class="n">length_bin</span><span class="p">)]</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="k">count</span>)        
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+            
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (926 &gt; 512). Running this sequence through the model will result in indexing errors
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LengthBin	Pos	Neg	Total
+   0- 249	7	13	20
+ 250- 499	126	148	274
+ 500- 749	271	317	588
+ 750- 999	275	298	573
+1000-1249	171	136	307
+1250-1499	75	49	124
+1500-1749	37	20	57
+1750-1999	21	10	31
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># basic usage of pytorch and lightning from</span>
+<span class="c1"># https://pytorch.org/tutorials/beginner/data_loading_tutorial.html</span>
+<span class="c1"># and</span>
+<span class="c1"># https://github.com/ricardorei/lightning-text-classification/blob/master/classifier.py</span>
+    
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">RandomSampler</span>
+
+<span class="k">class</span> <span class="nc">SlicedDocuments_part_1</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">raw_data</span><span class="p">,</span>
+        <span class="n">tokeniser</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">fraction_for_first_sequence</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">max_sequence_length</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
+        <span class="n">second_part_as_sequence_B</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">preproc_batch_size</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+        
+    <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Extracts slices from labelled documents</span>
+<span class="sd">           Args:</span>
+<span class="sd">               raw_data: list of (document, label) pairs</span>
+<span class="sd">               tokeniser: transformer tokeniser to obtain subword units; this tokeniser</span>
+<span class="sd">                   will be used to decide how many words to include in each slice; it</span>
+<span class="sd">                   is recommended to use the same tokeniser that will be used to tokenise</span>
+<span class="sd">                   the data</span>
+<span class="sd">               fraction_for_first_sequence: 1 = take slice from the start of the document,</span>
+<span class="sd">                   0 = take slice from the end of the document, &gt; 0 and &lt; 1 = take two</span>
+<span class="sd">                   slices, one of this relative size from the start and then fill to</span>
+<span class="sd">                   max_sequence_length from the end of the document</span>
+<span class="sd">               max_sequence_length: produce sequences up to this length</span>
+<span class="sd">               allow_partial_tokens: whether to slice between subword units of tokens; if</span>
+<span class="sd">                   set to True the produced sequences will always have max_sequence_length</span>
+<span class="sd">                   items unless the document is very short</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">assert</span> <span class="n">max_sequence_length</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_sequence_length</span> <span class="o">=</span> <span class="n">max_sequence_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">second_part_as_sequence_B</span> <span class="o">=</span> <span class="n">second_part_as_sequence_B</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_sequence_lengths</span><span class="p">(</span><span class="n">fraction_for_first_sequence</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tokeniser</span> <span class="o">=</span> <span class="n">tokeniser</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_slices</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">preproc_batch_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">init_sequence_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fraction_for_first_sequence</span><span class="p">):</span>
+        <span class="n">available_for_two_sequences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_sequence_length</span> <span class="o">-</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_sequence_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">fraction_for_first_sequence</span> <span class="o">*</span> <span class="n">available_for_two_sequences</span>
+        <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_sequence_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="n">available_for_two_sequences</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_sequence_length</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_sequence_length</span> \
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_sequence_length</span>   \
+            <span class="o">&lt;=</span> <span class="n">available_for_two_sequences</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_sequence_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_sequence_length</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_sequence_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">first_sequence_length</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_sequence_length</span> <span class="o">==</span> <span class="mi">0</span> \
+        <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_sequence_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># do not use a second [SEP] marker when there is</span>
+            <span class="c1"># always only one sequence</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">second_part_as_sequence_B</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SlicedDocuments_part_2</span><span class="p">(</span><span class="n">SlicedDocuments_part_1</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">init_slices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_data</span><span class="p">,</span> <span class="n">preproc_batch_size</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">next_batch</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">next_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">document</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">raw_data</span><span class="p">:</span>
+            <span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">document</span><span class="p">:</span>
+                <span class="n">tokens</span> <span class="o">=</span> <span class="n">tokens</span> <span class="o">+</span> <span class="n">sentence</span>
+            <span class="n">next_batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>    
+            <span class="n">next_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">next_batch</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">preproc_batch_size</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_batch</span><span class="p">(</span><span class="n">next_batch</span><span class="p">,</span> <span class="n">next_labels</span><span class="p">)</span>
+                <span class="n">next_batch</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">next_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">next_batch</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_batch</span><span class="p">(</span><span class="n">next_batch</span><span class="p">,</span> <span class="n">next_labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SlicedDocuments_part_3</span><span class="p">(</span><span class="n">SlicedDocuments_part_2</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">add_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+        <span class="c1"># determine, for each document in the batch, how many</span>
+        <span class="c1"># tokens to include from the start of the document</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_sequence_length</span><span class="p">:</span>
+            <span class="n">lengths_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_lengths</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lengths_1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># determine, for each document in the batch, how many</span>
+        <span class="c1"># tokens to include from the end of the document    </span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_sequence_length</span><span class="p">:</span>
+            <span class="n">lengths_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_lengths</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">part</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">lengths_1</span> <span class="o">=</span> <span class="n">lengths_1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lengths_2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># TODO: In an earlier version, we did not check the following</span>
+        <span class="c1">#       condition, creating a second sequence for short</span>
+        <span class="c1">#       documents even though only one sequence is requested.</span>
+        <span class="c1">#       First results indicate that this bug actually</span>
+        <span class="c1">#       improves performance. Future work should investigate</span>
+        <span class="c1">#       this and, if this effect is confirmed, propose a</span>
+        <span class="c1">#       clean solution to exploit this effect.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_sequence_length</span><span class="p">:</span>
+            <span class="c1"># sometimes there is space for more tokens from the</span>
+            <span class="c1"># start even though no more from the end fit</span>
+            <span class="n">lengths_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand_lengths</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">lengths_1</span><span class="p">,</span> <span class="n">lengths_2</span><span class="p">)</span>
+        <span class="c1"># TODO: For cases with length_1 + length_2 &gt; len(tokens),</span>
+        <span class="c1">#       should we adjust the parts to not overlap?       </span>
+        <span class="c1"># prepare texts</span>
+        <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">tokens</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">length_1</span> <span class="o">=</span> <span class="n">lengths_1</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+            <span class="n">length_2</span> <span class="o">=</span> <span class="n">lengths_2</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+            <span class="n">part_1</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[:</span><span class="n">length_1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">length_2</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">part_2</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="o">-</span><span class="n">length_2</span><span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">part_2</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_part_as_sequence_B</span><span class="p">:</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_1</span><span class="p">)</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_1</span> <span class="o">+</span> <span class="n">part_2</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>    
+            <span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parts</span><span class="p">,</span> <span class="n">labels</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SlicedDocuments_part_4</span><span class="p">(</span><span class="n">SlicedDocuments_part_3</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_lengths</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">part</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lengths_1</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">lengths_2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">part</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">lower_limits</span> <span class="o">=</span> <span class="n">lengths_1</span><span class="p">[:]</span>  <span class="c1"># clone</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lower_limits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">upper_limits</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tokens</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">:</span>
+            <span class="n">upper_limits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_sequence_length</span>
+            <span class="p">))</span>
+        <span class="c1"># we want each upper limit to be a sequence length</span>
+        <span class="c1"># that is too big but sometimes the full document</span>
+        <span class="c1"># (or max_length words) can fit --&gt; test for this</span>
+        <span class="c1"># special case</span>
+        <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">fit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_fit</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">upper_limits</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">lengths_1</span><span class="p">,</span> <span class="n">lengths_2</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="n">fit</span><span class="p">:</span>
+                <span class="c1"># update lower limit to match upper limit</span>
+                <span class="c1"># to mark this document as not needing any</span>
+                <span class="c1"># further length search</span>
+                <span class="n">lower_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">upper_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># prepare next lengths to test and check whether search is finished</span>
+            <span class="n">new_limits</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">all_done</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">tokens</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">lower_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="n">upper_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]:</span>
+                    <span class="n">new_limits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lower_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">all_done</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">new_limits</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
+                        <span class="n">lower_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">upper_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+                    <span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">all_done</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">lower_limits</span>
+            <span class="c1"># adjust lower and upper limits</span>
+            <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">fit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_fit</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">new_limits</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">lengths_1</span><span class="p">,</span> <span class="n">lengths_2</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="n">fit</span><span class="p">:</span>
+                    <span class="n">lower_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">upper_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SlicedDocuments_part_5</span><span class="p">(</span><span class="n">SlicedDocuments_part_4</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">limits</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">lengths_1</span><span class="p">,</span> <span class="n">lengths_2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">sliced_batch_A</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sliced_batch_B</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">tokens</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">part</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">length_1</span> <span class="o">=</span> <span class="n">limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+                <span class="n">length_2</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="n">part</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">length_1</span> <span class="o">=</span> <span class="n">lengths_1</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+                <span class="n">length_2</span> <span class="o">=</span> <span class="n">limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">length_1</span> <span class="o">=</span> <span class="n">limits</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+                <span class="n">length_2</span> <span class="o">=</span> <span class="n">lengths_2</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+            <span class="n">part_1</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[:</span><span class="n">length_1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">length_2</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">part_2</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="o">-</span><span class="n">length_2</span><span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">part_2</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_part_as_sequence_B</span><span class="p">:</span>
+                <span class="n">sliced_batch_A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_1</span><span class="p">)</span>
+                <span class="n">sliced_batch_B</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sliced_batch_A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_1</span> <span class="o">+</span> <span class="n">part_2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_part_as_sequence_B</span><span class="p">:</span>
+            <span class="n">tokenised</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokeniser</span><span class="p">(</span>
+               <span class="n">sliced_batch_A</span><span class="p">,</span> <span class="n">sliced_batch_B</span><span class="p">,</span>
+               <span class="n">is_split_into_words</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tokenised</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokeniser</span><span class="p">(</span>
+               <span class="n">sliced_batch_A</span><span class="p">,</span>
+               <span class="n">is_split_into_words</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># check lengths in subword pieced</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">subword_ids</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tokenised</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">part</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">subword_ids</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span>  <span class="c1"># account for [CLS] and [SEP]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_part_as_sequence_B</span><span class="p">:</span>
+                    <span class="n">length</span> <span class="o">-=</span> <span class="mi">1</span>                <span class="c1"># account for second [SEP] token</span>
+                <span class="n">fit</span> <span class="o">=</span> <span class="n">length</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_sequence_length</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fit</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">subword_ids</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_sequence_length</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">retval</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SlicedDocuments</span><span class="p">(</span><span class="n">SlicedDocuments_part_5</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="n">parts</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">retval</span><span class="p">[</span><span class="s1">&#39;parts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parts</span>
+        <span class="n">retval</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="k">return</span> <span class="n">retval</span>
+    
+    <span class="k">def</span> <span class="nf">expand_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">lengths_1</span><span class="p">,</span> <span class="n">lengths_2</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; pushes lengths_1 as far out as possible &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_lengths</span><span class="p">(</span>
+            <span class="n">batch</span><span class="p">,</span> <span class="n">part</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">lengths_1</span> <span class="o">=</span> <span class="n">lengths_1</span><span class="p">,</span>
+            <span class="n">lengths_2</span> <span class="o">=</span> <span class="n">lengths_2</span><span class="p">,</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">splits</span> <span class="o">=</span> <span class="n">data_loader</span><span class="o">.</span><span class="n">get_xval_splits</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ready&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ready
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this may take a minute</span>
+
+<span class="n">raw_data</span> <span class="o">=</span> <span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sliced_docs</span> <span class="o">=</span> <span class="n">SlicedDocuments</span><span class="p">(</span>
+    <span class="n">raw_data</span><span class="p">,</span> <span class="n">tokeniser</span><span class="p">,</span>
+    <span class="n">fraction_for_first_sequence</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">,</span>
+    <span class="n">max_sequence_length</span> <span class="o">=</span> <span class="n">max_sequence_length</span><span class="p">,</span> <span class="c1"># 99,</span>
+    <span class="n">second_part_as_sequence_B</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> training documents ready in x-val fold 0&#39;</span> <span class="o">%</span><span class="k">len</span>(sliced_docs))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1800 training documents ready in x-val fold 0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">length2count</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;doc_idx seq_len tokens1 tokens2 total&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">doc_idx</span><span class="p">,</span> <span class="n">sliced_doc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sliced_docs</span><span class="p">):</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">sliced_doc</span><span class="p">[</span><span class="s1">&#39;parts&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">tokenised</span> <span class="o">=</span> <span class="n">tokeniser</span><span class="p">(</span>
+           <span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+           <span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+           <span class="n">is_split_into_words</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">tokens1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">tokens2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tokenised</span> <span class="o">=</span> <span class="n">tokeniser</span><span class="p">(</span>
+           <span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+           <span class="n">is_split_into_words</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">tokens1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">tokens2</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokenised</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">length2count</span><span class="p">[</span><span class="n">length</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>             
+
+    <span class="k">if</span> <span class="n">length</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">First and last 3 sentences of doc_idx&#39;</span><span class="p">,</span> <span class="n">doc_idx</span><span class="p">,</span>
+            <span class="s1">&#39;with&#39;</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="s1">&#39;seq_len:&#39;</span>
+        <span class="p">)</span>
+        <span class="n">sent_idx</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">sent_idx</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="n">doc_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">idx</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sent_idx</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s_idx</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">sent_idx</span><span class="p">)):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sentence</span> <span class="o">=</span> <span class="n">raw_data</span><span class="p">[</span><span class="n">doc_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">s_idx</span><span class="p">]</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">%d</span><span class="s1">] </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">s_idx</span><span class="p">,</span> <span class="n">sentence</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Selected slice 1:&#39;</span><span class="p">,</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Selected slice 2:&#39;</span><span class="p">,</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">doc_idx</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%7d</span><span class="s1"> </span><span class="si">%7d</span><span class="s1"> </span><span class="si">%7d</span><span class="s1"> </span><span class="si">%7d</span><span class="s1"> </span><span class="si">%5d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span>
+            <span class="n">doc_idx</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">tokens1</span><span class="p">,</span> <span class="n">tokens2</span><span class="p">,</span> <span class="n">tokens1</span><span class="o">+</span><span class="n">tokens2</span><span class="p">,</span>
+        <span class="p">))</span>
+        
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Frequency of each sequence length:&#39;</span><span class="p">)</span>        
+<span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">length2count</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">length2count</span><span class="p">[</span><span class="n">length</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>doc_idx seq_len tokens1 tokens2 total
+      0     256      59     175   234
+      1     256      59     159   218
+      2     256      50     167   217
+      3     256      53     178   231
+      4     256      46     177   223
+      5     256      50     150   200
+      6     256      61     148   209
+      7     256      58     171   229
+      8     256      51     174   225
+      9     256      48     146   194
+
+First and last 3 sentences of doc_idx 906 with 53 seq_len:
+[0] [&#39;this&#39;, &#39;film&#39;, &#39;is&#39;, &#39;extraordinarily&#39;, &#39;horrendous&#39;, &#39;and&#39;, &quot;i&#39;m&quot;, &#39;not&#39;, &#39;going&#39;, &#39;to&#39;, &#39;waste&#39;, &#39;any&#39;, &#39;more&#39;, &#39;words&#39;, &#39;on&#39;, &#39;it&#39;, &#39;.&#39;]
+Selected slice 1: [&#39;this&#39;, &#39;film&#39;, &#39;is&#39;, &#39;extraordinarily&#39;, &#39;horrendous&#39;, &#39;and&#39;, &quot;i&#39;m&quot;, &#39;not&#39;, &#39;going&#39;, &#39;to&#39;, &#39;waste&#39;, &#39;any&#39;, &#39;more&#39;, &#39;words&#39;, &#39;on&#39;, &#39;it&#39;, &#39;.&#39;]
+Selected slice 2: [&#39;this&#39;, &#39;film&#39;, &#39;is&#39;, &#39;extraordinarily&#39;, &#39;horrendous&#39;, &#39;and&#39;, &quot;i&#39;m&quot;, &#39;not&#39;, &#39;going&#39;, &#39;to&#39;, &#39;waste&#39;, &#39;any&#39;, &#39;more&#39;, &#39;words&#39;, &#39;on&#39;, &#39;it&#39;, &#39;.&#39;]
+
+Frequency of each sequence length:
+53 1
+243 1
+254 5
+255 35
+256 1758
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://github.com/ricardorei/lightning-text-classification/blob/master/classifier.py</span>
+    
+<span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">from</span> <span class="nn">torchnlp.encoders</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+
+<span class="k">class</span> <span class="nc">SlicedDataModule_Part_1</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">LightningDataModule</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">data_split</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">hparams</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span>
+        <span class="k">if</span> <span class="n">data_split</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># this happens when loading a checkpoint</span>
+            <span class="n">data_split</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_split</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># add empty validation set</span>
+            <span class="n">tr_data</span><span class="p">,</span> <span class="n">val_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">data_split</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.9</span><span class="p">)</span>
+            <span class="n">data_split</span> <span class="o">=</span> <span class="p">(</span><span class="n">tr_data</span><span class="p">,</span> <span class="n">val_data</span><span class="p">,</span> <span class="n">data_split</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_split</span> <span class="o">=</span> <span class="n">data_split</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_encoder</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">(</span>
+            <span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">,</span> <span class="s1">&#39;neg&#39;</span><span class="p">],</span>
+            <span class="n">reserved_labels</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">train_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataLoader</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="n">batch_size</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">SlicedDocuments</span><span class="p">(</span>
+            <span class="n">raw_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_split</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">,</span>
+            <span class="n">sampler</span>     <span class="o">=</span> <span class="n">RandomSampler</span><span class="p">(</span><span class="n">dataset</span><span class="p">),</span>
+            <span class="n">batch_size</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">collate_fn</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">prepare_sample</span><span class="p">,</span>
+            <span class="n">num_workers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">loader_workers</span><span class="p">,</span>
+        <span class="p">)</span>
+  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SlicedDataModule</span><span class="p">(</span><span class="n">SlicedDataModule_Part_1</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">val_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataLoader</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="n">batch_size</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_split</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span>   <span class="c1"># TODO: check documentation what to return</span>
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">dataset</span> <span class="o">=</span> <span class="n">SlicedDocuments</span><span class="p">(</span>
+                <span class="n">raw_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_split</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
+            <span class="p">),</span>
+            <span class="n">batch_size</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">collate_fn</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">prepare_sample</span><span class="p">,</span>
+            <span class="n">num_workers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">loader_workers</span><span class="p">,</span>
+        <span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">test_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataLoader</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="n">batch_size</span>
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">dataset</span> <span class="o">=</span> <span class="n">SlicedDocuments</span><span class="p">(</span>
+                <span class="n">raw_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_split</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
+            <span class="p">),</span>
+            <span class="n">batch_size</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">collate_fn</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">prepare_sample</span><span class="p">,</span>
+            <span class="n">num_workers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">loader_workers</span><span class="p">,</span>
+        <span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ratio</span><span class="p">):</span>
+        <span class="c1"># get label distribution:</span>
+        <span class="n">distribution</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">distribution</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># get target frequencies of labels in first set</span>
+        <span class="n">still_needed</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">distribution</span><span class="p">:</span>
+            <span class="n">still_needed</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ratio</span><span class="o">*</span><span class="n">distribution</span><span class="p">[</span><span class="n">label</span><span class="p">])</span>
+        <span class="c1"># split data accordingly</span>
+        <span class="n">dataset_1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dataset_2</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">still_needed</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">dataset_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="n">still_needed</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dataset_2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dataset_1</span><span class="p">,</span> <span class="n">dataset_2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModel</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="k">class</span> <span class="nc">Classifier_part_1</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hparams</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">hparams</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="c1">#print(&#39;Converting&#39;, type(hparams))</span>
+            <span class="n">hparams</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">(</span><span class="n">hparams</span><span class="p">)</span>
+        <span class="c1">#print(&#39;New classifier with&#39;, hparams)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span> <span class="o">=</span> <span class="n">hparams</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">hparams</span><span class="o">.</span><span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">SlicedDataModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;tokeniser&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tokeniser&#39;</span><span class="p">]</span>  <span class="c1"># attribute expected by lightning</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># this happens when loading a checkpoint</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># TODO: this may break ability to use the model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__build_model</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__build_loss</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">hparams</span><span class="o">.</span><span class="n">nr_frozen_epochs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">freeze_encoder</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_frozen</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nr_frozen_epochs</span> <span class="o">=</span> <span class="n">hparams</span><span class="o">.</span><span class="n">nr_frozen_epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">record_predictions</span> <span class="o">=</span> <span class="kc">False</span>
+            
+    <span class="k">def</span> <span class="nf">__build_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Init BERT model, tokeniser and classification head &#39;&#39;&#39;</span>
+        <span class="c1"># Q: Why not use AutoModelForSequenceClassification?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bert</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+            <span class="n">model_name</span><span class="p">,</span>  <span class="c1"># was: self.hparams.encoder_model</span>
+            <span class="n">output_hidden_states</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classification_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bert</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">1536</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1536</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">vocab_size</span><span class="p">)</span>
+        <span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">__build_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loss</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModel</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="k">class</span> <span class="nc">Classifier_part_1</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hparams</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">hparams</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="c1">#print(&#39;Converting&#39;, type(hparams))</span>
+            <span class="n">hparams</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">AttributeDict</span><span class="p">(</span><span class="n">hparams</span><span class="p">)</span>
+        <span class="c1">#print(&#39;New classifier with&#39;, hparams)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span> <span class="o">=</span> <span class="n">hparams</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">hparams</span><span class="o">.</span><span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">SlicedDataModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;tokeniser&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tokeniser&#39;</span><span class="p">]</span>  <span class="c1"># attribute expected by lightning</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># this happens when loading a checkpoint</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># TODO: this may break ability to use the model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__build_model</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__build_loss</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">hparams</span><span class="o">.</span><span class="n">nr_frozen_epochs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">freeze_encoder</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_frozen</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nr_frozen_epochs</span> <span class="o">=</span> <span class="n">hparams</span><span class="o">.</span><span class="n">nr_frozen_epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">record_predictions</span> <span class="o">=</span> <span class="kc">False</span>
+            
+    <span class="k">def</span> <span class="nf">__build_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Init BERT model, tokeniser and classification head &#39;&#39;&#39;</span>
+        <span class="c1"># Q: Why not use AutoModelForSequenceClassification?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bert</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+            <span class="n">model_name</span><span class="p">,</span>  <span class="c1"># was: self.hparams.encoder_model</span>
+            <span class="n">output_hidden_states</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classification_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bert</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">1536</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1536</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">vocab_size</span><span class="p">)</span>
+        <span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">__build_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loss</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span> <span class="k">as</span> <span class="nn">log</span>
+
+<span class="k">class</span> <span class="nc">Classifier_part_2</span><span class="p">(</span><span class="n">Classifier_part_1</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">unfreeze_encoder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frozen</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">== Encoder model fine-tuning ==&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bert</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+                <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_frozen</span> <span class="o">=</span> <span class="kc">False</span>
+            
+    <span class="k">def</span> <span class="nf">freeze_encoder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bert</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+            <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frozen</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">batch_inputs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_sample</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">sample</span><span class="p">],</span>
+                <span class="n">prepare_target</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="p">)</span>
+            <span class="n">model_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">batch_inputs</span><span class="p">)</span>
+            <span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">(</span><span class="n">model_out</span><span class="p">[</span><span class="s2">&quot;logits&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">predicted_labels</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">index_to_token</span><span class="p">[</span><span class="n">prediction</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predicted_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">sample</span>
+    
+    <span class="k">def</span> <span class="nf">start_recording_predictions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">record_predictions</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_recorded_predictions</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">stop_recording_predictions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">record_predictions</span> <span class="o">=</span> <span class="kc">False</span>
+        
+    <span class="k">def</span> <span class="nf">reset_recorded_predictions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seq2label</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torchnlp.utils</span> <span class="kn">import</span> <span class="n">lengths_to_mask</span>
+
+<span class="k">class</span> <span class="nc">Classifier_part_3</span><span class="p">(</span><span class="n">Classifier_part_2</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_input</span><span class="p">):</span>
+        <span class="n">tokens</span>  <span class="o">=</span> <span class="n">batch_input</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]</span>
+        <span class="n">lengths</span> <span class="o">=</span> <span class="n">batch_input</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">batch_input</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">]</span>
+        <span class="c1"># Run BERT model.</span>
+        <span class="n">word_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bert</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">last_hidden_state</span>
+        <span class="n">sentemb</span> <span class="o">=</span> <span class="n">word_embeddings</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># at position of [CLS]</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classification_head</span><span class="p">(</span><span class="n">sentemb</span><span class="p">)</span>
+        <span class="c1"># Hack to conveniently use the model and trainer to</span>
+        <span class="c1"># get predictions for a test set:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_predictions</span><span class="p">:</span>
+            <span class="n">logits_np</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">predicted_labels</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">index_to_token</span><span class="p">[</span><span class="n">prediction</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">logits_np</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">input_token_ids</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">(</span><span class="n">input_token_ids</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="c1"># truncate trailing zeros</span>
+                <span class="k">while</span> <span class="n">key</span> <span class="ow">and</span> <span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">seq2label</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">predicted_labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;logits&quot;</span><span class="p">:</span> <span class="n">logits</span><span class="p">}</span>
+    
+    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">predictions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes Loss value according to a loss function.</span>
+<span class="sd">        :param predictions: model specific output. Must contain a key &#39;logits&#39; with</span>
+<span class="sd">            a tensor [batch_size x 1] with model predictions</span>
+<span class="sd">        :param labels: Label values [batch_size]</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.tensor with loss value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loss</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;logits&quot;</span><span class="p">],</span> <span class="n">targets</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Classifier_part_4</span><span class="p">(</span><span class="n">Classifier_part_3</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">prepare_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">prepare_target</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function that prepares a sample to input the model.</span>
+<span class="sd">        :param sample: list of dictionaries.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            - dictionary with the expected model inputs.</span>
+<span class="sd">            - dictionary with the expected target labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">batch_size</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">with_1_part</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">with_2_parts</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">batch_part_1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">batch_part_2</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">:</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;parts&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">with_2_parts</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">batch_part_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">batch_part_2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">with_1_part</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">batch_part_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="p">(</span><span class="n">with_1_part</span> <span class="ow">and</span> <span class="n">with_2_parts</span><span class="p">)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;is_split_into_words&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;return_length&#39;</span><span class="p">:</span>       <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;padding&#39;</span><span class="p">:</span>             <span class="s1">&#39;max_length&#39;</span><span class="p">,</span>
+            <span class="c1"># https://github.com/huggingface/transformers/issues/8691</span>
+            <span class="s1">&#39;return_tensors&#39;</span><span class="p">:</span>      <span class="s1">&#39;pt&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">with_2_parts</span><span class="p">:</span>
+            <span class="n">encoded_batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span>
+                <span class="n">batch_part_1</span><span class="p">,</span>
+                <span class="n">batch_part_2</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">encoded_batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span>
+                <span class="n">batch_part_1</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">prepare_target</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">encoded_batch</span><span class="p">,</span> <span class="p">{}</span>
+        <span class="c1"># Prepare target:</span>
+        <span class="n">batch_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">:</span>
+            <span class="n">batch_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_labels</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">batch_size</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">targets</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;labels&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">batch_encode</span><span class="p">(</span><span class="n">batch_labels</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">encoded_batch</span><span class="p">,</span> <span class="n">targets</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Label encoder found an unknown label.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="k">class</span> <span class="nc">Classifier_part_5</span><span class="p">(</span><span class="n">Classifier_part_4</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">batch</span>
+        <span class="n">model_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">loss_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">model_out</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+        <span class="c1"># in DP mode (default) make sure if result is scalar, there&#39;s another dim in the beginning</span>
+        <span class="c1"># Q: What is this about?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">use_dp</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">use_ddp2</span><span class="p">:</span>
+            <span class="n">loss_val</span> <span class="o">=</span> <span class="n">loss_val</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">({</span><span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="n">loss_val</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;train_loss&#39;</span><span class="p">,</span> <span class="n">loss_val</span><span class="p">,</span> <span class="n">on_step</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prog_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># can also return just a scalar instead of a dict (return loss_val)</span>
+        <span class="k">return</span> <span class="n">output</span>
+   
+    <span class="k">def</span> <span class="nf">test_or_validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_type</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">batch</span>
+        <span class="n">model_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">loss_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">model_out</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span>
+        <span class="n">y_hat</span> <span class="o">=</span> <span class="n">model_out</span><span class="p">[</span><span class="s2">&quot;logits&quot;</span><span class="p">]</span>
+        <span class="c1"># acc</span>
+        <span class="n">labels_hat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_hat</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">val_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">labels_hat</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">val_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">val_acc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_gpu</span><span class="p">:</span>
+            <span class="n">val_acc</span> <span class="o">=</span> <span class="n">val_acc</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="n">loss_val</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="c1"># in DP mode (default) make sure if result is scalar, there&#39;s another dim in the beginning</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">use_dp</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">use_ddp2</span><span class="p">:</span>
+            <span class="n">loss_val</span> <span class="o">=</span> <span class="n">loss_val</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">val_acc</span> <span class="o">=</span> <span class="n">val_acc</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">({</span>
+            <span class="n">test_type</span> <span class="o">+</span> <span class="s2">&quot;_loss&quot;</span><span class="p">:</span> <span class="n">loss_val</span><span class="p">,</span>
+            <span class="n">test_type</span> <span class="o">+</span> <span class="s2">&quot;_acc&quot;</span><span class="p">:</span>  <span class="n">val_acc</span><span class="p">,</span>
+            <span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">),</span>
+            <span class="c1">#&#39;predictions&#39;: labels_hat,</span>
+        <span class="p">})</span>
+        <span class="k">return</span> <span class="n">output</span>
+    
+    <span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_or_validation_step</span><span class="p">(</span>
+            <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_or_validation_step</span><span class="p">(</span>
+            <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">optim</span>
+
+<span class="k">class</span> <span class="nc">Classifier</span><span class="p">(</span><span class="n">Classifier_part_5</span><span class="p">):</span>
+    
+    <span class="c1"># validation_end() is now validation_epoch_end()</span>
+    <span class="c1"># https://github.com/PyTorchLightning/pytorch-lightning/blob/efd272a3cac2c412dd4a7aa138feafb2c114326f/CHANGELOG.md</span>
+    
+    <span class="k">def</span> <span class="nf">test_or_validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_type</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">val_loss_mean</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">val_acc_mean</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+            <span class="n">val_loss</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">test_type</span> <span class="o">+</span> <span class="s2">&quot;_loss&quot;</span><span class="p">]</span>
+            <span class="c1"># reduce manually when using dp</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">use_dp</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">use_ddp2</span><span class="p">:</span>
+                <span class="n">val_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
+            <span class="n">val_loss_mean</span> <span class="o">+=</span> <span class="n">val_loss</span>
+            <span class="c1"># reduce manually when using dp</span>
+            <span class="n">val_acc</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">test_type</span> <span class="o">+</span> <span class="s2">&quot;_acc&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">use_dp</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">use_ddp2</span><span class="p">:</span>
+                <span class="n">val_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">val_acc</span><span class="p">)</span>
+            <span class="c1"># We weight the batch accuracy by batch size to not give</span>
+            <span class="c1"># higher weight to the items of a smaller, final bacth.</span>
+            <span class="n">batch_size</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;batch_size&#39;</span><span class="p">]</span>
+            <span class="n">val_acc_mean</span> <span class="o">+=</span> <span class="n">val_acc</span> <span class="o">*</span> <span class="n">batch_size</span>
+            <span class="n">total_size</span> <span class="o">+=</span> <span class="n">batch_size</span>
+        <span class="n">val_loss_mean</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+        <span class="n">val_acc_mean</span> <span class="o">/=</span> <span class="n">total_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">test_type</span><span class="o">+</span><span class="s1">&#39;_loss&#39;</span><span class="p">,</span> <span class="n">val_loss_mean</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">test_type</span><span class="o">+</span><span class="s1">&#39;_acc&#39;</span><span class="p">,</span>  <span class="n">val_acc_mean</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_or_validation_epoch_end</span><span class="p">(</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+                                     
+    <span class="k">def</span> <span class="nf">test_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_or_validation_epoch_end</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Sets different Learning rates for different parameter groups. &quot;&quot;&quot;</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">classification_head</span><span class="o">.</span><span class="n">parameters</span><span class="p">()},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bert</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+                <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">encoder_learning_rate</span><span class="p">,</span>
+                <span class="c1">#&quot;weight_decay&quot;: 0.01,  # TODO: try this as it is in the BERT paper</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">optimizer</span><span class="p">],</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Pytorch lightning hook &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_epoch</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_frozen_epochs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unfreeze_encoder</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xval_run</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 0 to 9</span>
+
+
+<span class="c1">#class DotDict(pl.utilities.AttributeDict):    </span>
+<span class="c1">#    __getattr__ = dict.get</span>
+
+    <span class="c1"># the above misses pickle support; presumable dict defines custom pickle behaviour</span>
+    <span class="c1"># that causes the unpickled object to be a plain dict object</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;batch_size&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">Classifier</span><span class="p">(</span>
+    <span class="n">hparams</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;encoder_learning_rate&quot;</span><span class="p">:</span> <span class="mf">1e-05</span><span class="p">,</span>  <span class="c1"># Encoder specific learning rate</span>
+        <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span>         <span class="mf">3e-05</span><span class="p">,</span>  <span class="c1"># Classification head learning rate</span>
+        <span class="s2">&quot;nr_frozen_epochs&quot;</span><span class="p">:</span>      <span class="mi">3</span><span class="p">,</span>      <span class="c1"># Number of epochs we want to keep the encoder model frozen</span>
+        <span class="s2">&quot;loader_workers&quot;</span><span class="p">:</span>        <span class="mi">4</span><span class="p">,</span>      <span class="c1"># How many subprocesses to use for data loading.</span>
+                                         <span class="c1"># (0 means that the data will be loaded in the main process)</span>
+        <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span>            <span class="n">batch_size</span><span class="p">,</span>
+        <span class="s2">&quot;gpus&quot;</span><span class="p">:</span>                  <span class="mi">1</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="c1"># parameters for SlicedDataModule:</span>
+    <span class="n">data_split</span> <span class="o">=</span> <span class="n">splits</span><span class="p">[</span><span class="n">xval_run</span><span class="p">],</span>
+    <span class="c1"># parameters for SlicedDocument():</span>
+    <span class="n">tokeniser</span>                   <span class="o">=</span> <span class="n">tokeniser</span><span class="p">,</span>
+    <span class="n">fraction_for_first_sequence</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>   <span class="c1"># set to 0.0001 to duplicate short documents</span>
+    <span class="n">max_sequence_length</span>         <span class="o">=</span> <span class="n">max_sequence_length</span><span class="p">,</span>
+    <span class="n">second_part_as_sequence_B</span>   <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">preproc_batch_size</span>          <span class="o">=</span> <span class="mi">8</span>
+<span class="p">)</span>   
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ready.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>batch_size 10
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "92faa24ea33d4ade8ce620024a17a88b", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ready.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://pytorch-lightning.readthedocs.io/en/latest/common/early_stopping.html</span>
+
+<span class="kn">from</span> <span class="nn">pytorch_lightning.callbacks.early_stopping</span> <span class="kn">import</span> <span class="n">EarlyStopping</span>
+<span class="kn">from</span> <span class="nn">pytorch_lightning.callbacks.model_checkpoint</span> <span class="kn">import</span> <span class="n">ModelCheckpoint</span>
+
+<span class="n">early_stop_callback</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span>
+    <span class="n">monitor</span>   <span class="o">=</span> <span class="s1">&#39;val_acc&#39;</span><span class="p">,</span>
+    <span class="n">min_delta</span> <span class="o">=</span> <span class="mf">0.00</span><span class="p">,</span>
+    <span class="n">patience</span>  <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">verbose</span>   <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">mode</span>      <span class="o">=</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save_top_model_callback</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span>
+    <span class="n">save_top_k</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">monitor</span>    <span class="o">=</span> <span class="s1">&#39;val_acc&#39;</span><span class="p">,</span>
+    <span class="n">mode</span>       <span class="o">=</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span>
+    <span class="n">filename</span>   <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{val_acc:.4f}</span><span class="s1">-</span><span class="si">{epoch:02d}</span><span class="s1">-</span><span class="si">{val_loss:.4f}</span><span class="s1">&#39;</span>
+<span class="p">)</span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stop_callback</span><span class="p">,</span> <span class="n">save_top_model_callback</span><span class="p">],</span>
+    <span class="n">max_epochs</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="n">min_epochs</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">nr_frozen_epochs</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">gpus</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">gpus</span><span class="p">,</span>
+    <span class="n">accumulate_grad_batches</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>   <span class="c1"># compensate for small batch size</span>
+    <span class="c1">#limit_train_batches = 10,  # use only a subset of the data during development for higher speed</span>
+    <span class="n">check_val_every_n_epoch</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="c1"># https://github.com/PyTorchLightning/pytorch-lightning/issues/6690</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">loggers</span><span class="o">.</span><span class="n">TensorBoardLogger</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;lightning_logs&#39;</span><span class="p">)),</span>
+<span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">classifier</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training time: </span><span class="si">%.0f</span><span class="s1"> minutes&#39;</span> <span class="o">%</span><span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="mf">60.0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">MisconfigurationException</span><span class="g g-Whitespace">                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">31</span><span class="o">-</span><span class="n">e70047ba578f</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="n">check_val_every_n_epoch</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="c1"># https://github.com/PyTorchLightning/pytorch-lightning/issues/6690</span>
+<span class="ne">---&gt; </span><span class="mi">30</span>     <span class="n">logger</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">loggers</span><span class="o">.</span><span class="n">TensorBoardLogger</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;lightning_logs&#39;</span><span class="p">)),</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="nn">~\anaconda3\envs\BERT\lib\site-packages\pytorch_lightning\trainer\connectors\env_vars_connector.py</span> in <span class="ni">insert_env_defaults</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span> 
+<span class="g g-Whitespace">     </span><span class="mi">38</span>         <span class="c1"># all args were already moved to kwargs</span>
+<span class="ne">---&gt; </span><span class="mi">39</span>         <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span> 
+<span class="g g-Whitespace">     </span><span class="mi">41</span>     <span class="k">return</span> <span class="n">insert_env_defaults</span>
+
+<span class="nn">~\anaconda3\envs\BERT\lib\site-packages\pytorch_lightning\trainer\trainer.py</span> in <span class="ni">__init__</span><span class="nt">(self, logger, checkpoint_callback, callbacks, default_root_dir, gradient_clip_val, process_position, num_nodes, num_processes, gpus, auto_select_gpus, tpu_cores, log_gpu_memory, progress_bar_refresh_rate, overfit_batches, track_grad_norm, check_val_every_n_epoch, fast_dev_run, accumulate_grad_batches, max_epochs, min_epochs, max_steps, min_steps, limit_train_batches, limit_val_batches, limit_test_batches, limit_predict_batches, val_check_interval, flush_logs_every_n_steps, log_every_n_steps, accelerator, sync_batchnorm, precision, weights_summary, weights_save_path, num_sanity_val_steps, truncated_bptt_steps, resume_from_checkpoint, profiler, benchmark, deterministic, reload_dataloaders_every_epoch, auto_lr_find, replace_sampler_ddp, terminate_on_nan, auto_scale_batch_size, prepare_data_per_node, plugins, amp_backend, amp_level, distributed_backend, automatic_optimization, move_metrics_to_cpu, enable_pl_optimizer, multiple_trainloader_mode, stochastic_weight_avg)</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span>         <span class="bp">self</span><span class="o">.</span><span class="n">accelerator_connector</span> <span class="o">=</span> <span class="n">AcceleratorConnector</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>             <span class="n">num_processes</span><span class="p">,</span> <span class="n">tpu_cores</span><span class="p">,</span> <span class="n">distributed_backend</span><span class="p">,</span> <span class="n">auto_select_gpus</span><span class="p">,</span> <span class="n">gpus</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">,</span> <span class="n">sync_batchnorm</span><span class="p">,</span> <span class="n">benchmark</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">321</span>             <span class="n">replace_sampler_ddp</span><span class="p">,</span> <span class="n">deterministic</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">amp_backend</span><span class="p">,</span> <span class="n">amp_level</span><span class="p">,</span> <span class="n">plugins</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span>         <span class="bp">self</span><span class="o">.</span><span class="n">logger_connector</span> <span class="o">=</span> <span class="n">LoggerConnector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_gpu_memory</span><span class="p">)</span>
+
+<span class="nn">~\anaconda3\envs\BERT\lib\site-packages\pytorch_lightning\trainer\connectors\accelerator_connector.py</span> in <span class="ni">__init__</span><span class="nt">(self, num_processes, tpu_cores, distributed_backend, auto_select_gpus, gpus, num_nodes, sync_batchnorm, benchmark, replace_sampler_ddp, deterministic, precision, amp_type, amp_level, plugins)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span>             <span class="bp">self</span><span class="o">.</span><span class="n">gpus</span> <span class="o">=</span> <span class="n">pick_multiple_gpus</span><span class="p">(</span><span class="n">gpus</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span> 
+<span class="ne">--&gt; </span><span class="mi">117</span>         <span class="bp">self</span><span class="o">.</span><span class="n">parallel_device_ids</span> <span class="o">=</span> <span class="n">device_parser</span><span class="o">.</span><span class="n">parse_gpu_ids</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gpus</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span> 
+<span class="g g-Whitespace">    </span><span class="mi">119</span>         <span class="bp">self</span><span class="o">.</span><span class="n">set_distributed_mode</span><span class="p">()</span>
+
+<span class="nn">~\anaconda3\envs\BERT\lib\site-packages\pytorch_lightning\utilities\device_parser.py</span> in <span class="ni">parse_gpu_ids</span><span class="nt">(gpus)</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">gpus</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>         <span class="k">raise</span> <span class="n">MisconfigurationException</span><span class="p">(</span><span class="s2">&quot;GPUs requested but none are available.&quot;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">76</span>     <span class="n">gpus</span> <span class="o">=</span> <span class="n">_sanitize_gpu_ids</span><span class="p">(</span><span class="n">gpus</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span> 
+<span class="g g-Whitespace">     </span><span class="mi">78</span>     <span class="k">return</span> <span class="n">gpus</span>
+
+<span class="nn">~\anaconda3\envs\BERT\lib\site-packages\pytorch_lightning\utilities\device_parser.py</span> in <span class="ni">_sanitize_gpu_ids</span><span class="nt">(gpus)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span>         <span class="k">if</span> <span class="n">gpu</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_available_gpus</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>             <span class="k">raise</span> <span class="n">MisconfigurationException</span><span class="p">(</span>
+<span class="ne">--&gt; </span><span class="mi">134</span>                 <span class="sa">f</span><span class="s2">&quot;You requested GPUs: </span><span class="si">{</span><span class="n">gpus</span><span class="si">}</span><span class="se">\n</span><span class="s2"> But your machine only has: </span><span class="si">{</span><span class="n">all_available_gpus</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span>             <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span>     <span class="k">return</span> <span class="n">gpus</span>
+
+<span class="ne">MisconfigurationException</span>: You requested GPUs: [0]
+ <span class="n">But</span> <span class="n">your</span> <span class="n">machine</span> <span class="n">only</span> <span class="n">has</span><span class="p">:</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

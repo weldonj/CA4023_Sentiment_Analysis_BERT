@@ -1,0 +1,1359 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Naive Bayes &#8212; CA4023 Assignment 3 - BERT Sentiment Analysis - John Weldon</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/bert.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">CA4023 Assignment 3 - BERT Sentiment Analysis - John Weldon</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro.html">
+   OVERVIEW
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT with 512 sequence length
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html">
+   Negation Handling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html#decision-tree">
+   Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html#support-vector-machine">
+   Support Vector Machine
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT with 512 sequence length and 12 Epochs
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html">
+   Bigram Implementation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html#decision-tree">
+   Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html#support-vector-machine">
+   Support Vector Machine
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT vs Naive Bayes
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Trigram.html">
+   Trigram Implementation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Trigram.html#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Trigram.html#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT vs Logistic Regression
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html">
+   Bigrams with Negation Handling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html#decision-tree">
+   Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html#support-vector-machine">
+   Support Vector Machine
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Overall Results
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Results.html">
+   <em>
+    Baseline Setup
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Results.html#negation-handling-implemented">
+   <em>
+    Negation Handling Implemented
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Results.html#bigrams-instead-of-unigrams">
+   <em>
+    Bigrams instead of Unigrams
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Results.html#trigram">
+   <em>
+    Trigram
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Results.html#bigrams-with-negation-handling">
+   <em>
+    Bigrams with Negation Handling
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Results.html#lexicon">
+   <em>
+    Lexicon
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Results.html#all-model-comparison">
+   <em>
+    All Model Comparison
+   </em>
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Conclusion and Learning Outcomes
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="TestOnHiddenSet.html">
+   Testing Optimal Model on Hidden Set
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/Baseline-Copy1.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Baseline-Copy1.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#decision-tree">
+   Decision Tree
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machine">
+   Support Vector Machine
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <p>The first thing I needed to do was replicate the baseline Naive Bayes which was provided to us as part of the assignment and evaluate its performance so I would have something to compare my further experiments to. The next 10 cells are not much different to what was supplied and are simply setting up the data loading etc.</p>
+<p>If you skip to the “Naive Bayes” sub heading, this would be a good place to start.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">tarfile</span>
+
+<span class="k">class</span> <span class="nc">PL04DataLoader_Part_1</span><span class="p">:</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    
+    <span class="k">def</span> <span class="nf">get_labelled_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fold</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Compile a fold of the data set</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">,</span> <span class="s1">&#39;neg&#39;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_documents</span><span class="p">(</span>
+                <span class="n">fold</span> <span class="o">=</span> <span class="n">fold</span><span class="p">,</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="n">dataset</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">document</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">dataset</span>
+    
+    <span class="k">def</span> <span class="nf">get_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fold</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;pos&#39;</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Enumerate the raw contents of all data set files.</span>
+<span class="sd">            Args:</span>
+<span class="sd">                data_dir: relative or absolute path to the data set folder</span>
+<span class="sd">                fold: which fold to load (0 to n_folds-1)</span>
+<span class="sd">                label: &#39;pos&#39; or &#39;neg&#39; to</span>
+<span class="sd">                    select data with positive or negative sentiment</span>
+<span class="sd">                    polarity</span>
+<span class="sd">            Return:</span>
+<span class="sd">                List of tokenised documents, each a list of sentences</span>
+<span class="sd">                that in turn are lists of tokens</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="k">class</span> <span class="nc">PL04DataLoader</span><span class="p">(</span><span class="n">PL04DataLoader_Part_1</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">get_xval_splits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Split data with labels for cross-validation</span>
+<span class="sd">            returns a list of k pairs (training_data, test_data)</span>
+<span class="sd">            for k cross-validation</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># load the folds</span>
+        <span class="n">folds</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">folds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_labelled_dataset</span><span class="p">(</span>
+                <span class="n">fold</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="p">))</span>
+        <span class="c1"># create training-test splits</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">test_data</span> <span class="o">=</span> <span class="n">folds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">training_data</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+                <span class="n">ij1</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span>
+                <span class="k">assert</span> <span class="n">ij1</span> <span class="o">!=</span> <span class="n">i</span>
+                <span class="n">training_data</span> <span class="o">=</span> <span class="n">training_data</span> <span class="o">+</span> <span class="n">folds</span><span class="p">[</span><span class="n">ij1</span><span class="p">]</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">training_data</span><span class="p">,</span> <span class="n">test_data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">retval</span>
+    
+<span class="k">class</span> <span class="nc">PL04DataLoaderFromStream</span><span class="p">(</span><span class="n">PL04DataLoader</span><span class="p">):</span>
+        
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tgz_stream</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r|gz&#39;</span><span class="p">,</span>
+            <span class="n">fileobj</span> <span class="o">=</span> <span class="n">tgz_stream</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">tar_archive</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tar_member</span> <span class="ow">in</span> <span class="n">tar_archive</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">counter</span> <span class="o">==</span> <span class="mi">2000</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="n">path_components</span> <span class="o">=</span> <span class="n">tar_member</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">path_components</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;cv&#39;</span><span class="p">)</span> \
+                <span class="ow">and</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">)</span> \
+                <span class="ow">and</span> <span class="s1">&#39;_&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+                    <span class="n">label</span> <span class="o">=</span> <span class="n">path_components</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">fold</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">filename</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">fold</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">f</span> <span class="o">=</span> <span class="n">tar_archive</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="n">tar_member</span><span class="p">)</span>
+                    <span class="n">document</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                    <span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+                    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+    <span class="k">def</span> <span class="nf">get_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fold</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;pos&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">fold</span><span class="p">,</span> <span class="n">label</span><span class="p">)]</span>
+
+<span class="k">class</span> <span class="nc">PL04DataLoaderFromTGZ</span><span class="p">(</span><span class="n">PL04DataLoaderFromStream</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tgz_stream</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">tgz_stream</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dir_entries</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">()</span>
+<span class="n">dir_entries</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_loader</span> <span class="o">=</span> <span class="n">PL04DataLoaderFromTGZ</span><span class="p">(</span><span class="s1">&#39;data.tar.gz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test &quot;get_documents()&quot;</span>
+
+<span class="k">def</span> <span class="nf">get_document_preview</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">max_length</span> <span class="o">=</span> <span class="mi">72</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">reached_limit</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">document</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_length</span><span class="p">:</span>
+                <span class="n">reached_limit</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reached_limit</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    
+<span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="s1">&#39;pos neg&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;== </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> ==&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;doc sentences start of first sentence&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">document</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="o">.</span><span class="n">get_documents</span><span class="p">(</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+    <span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%3d</span><span class="s1"> </span><span class="si">%7d</span><span class="s1">   </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span>
+            <span class="n">index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">document</span><span class="p">),</span> <span class="n">get_document_preview</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+        <span class="p">))</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>== pos ==
+doc sentences start of first sentence
+  0      25   films|adapted|from|comic|books|have|had|plenty|of|success|,|whether
+  1      39   every|now|and|then|a|movie|comes|along|from|a|suspect|studio|,|with
+  2      19   you&#39;ve|got|mail|works|alot|better|than|it|deserves|to|.|in|order|to|make
+  3      42   &quot;|jaws|&quot;|is|a|rare|film|that|grabs|your|attention|before|it|shows|you|a
+  4      25   moviemaking|is|a|lot|like|being|the|general|manager|of|an|nfl|team|in
+== neg ==
+doc sentences start of first sentence
+  0      35   plot|:|two|teen|couples|go|to|a|church|party|,|drink|and|then|drive|.
+  1      13   the|happy|bastard&#39;s|quick|movie|review|damn|that|y2k|bug|.|it&#39;s|got|a
+  2      23   it|is|movies|like|these|that|make|a|jaded|movie|viewer|thankful|for|the
+  3      19   &quot;|quest|for|camelot|&quot;|is|warner|bros|.|&#39;|first|feature-length|,
+  4      37   synopsis|:|a|mentally|unstable|man|undergoing|psychotherapy|saves|a|boy
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test &quot;get_xval_splits()&quot;</span>
+
+<span class="n">splits</span> <span class="o">=</span> <span class="n">data_loader</span><span class="o">.</span><span class="n">get_xval_splits</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;tr-size te-size (number of documents)&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">xval_tr_data</span><span class="p">,</span> <span class="n">xval_te_data</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%7d</span><span class="s1"> </span><span class="si">%7d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xval_tr_data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">xval_te_data</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tr-size te-size (number of documents)
+   1800     200
+   1800     200
+   1800     200
+   1800     200
+   1800     200
+   1800     200
+   1800     200
+   1800     200
+   1800     200
+   1800     200
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PolarityPredictorInterface</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_with_labels</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PolarityPredictorWithVocabulary</span><span class="p">(</span><span class="n">PolarityPredictorInterface</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_with_labels</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_vocab</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_to_vocab_from_data</span><span class="p">(</span><span class="n">data_with_labels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finalise_vocab</span><span class="p">()</span>
+        <span class="n">tr_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_features</span><span class="p">(</span>
+            <span class="n">data_with_labels</span>
+        <span class="p">)</span>
+        <span class="n">tr_targets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_targets</span><span class="p">(</span><span class="n">data_with_labels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_model_on_features</span><span class="p">(</span><span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">reset_vocab</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">add_to_vocab_from_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">document</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">document</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">finalise_vocab</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+        <span class="c1"># create reverse map for fast token lookup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token2index</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">token</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">token2index</span><span class="p">[</span><span class="n">token</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+        
+    <span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+    
+    <span class="k">def</span> <span class="nf">get_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">label2index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        
+    <span class="k">def</span> <span class="nf">train_model_on_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="k">class</span> <span class="nc">PolarityPredictorWithBagOfWords_01</span><span class="p">(</span><span class="n">PolarityPredictorWithVocabulary</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clip_counts</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clip_counts</span> <span class="o">=</span> <span class="n">clip_counts</span>
+        
+    <span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1"># create numpy array of required size</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>        
+        <span class="c1"># populate feature matrix</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="n">document</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">document</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">token2index</span><span class="p">[</span><span class="n">token</span><span class="p">]</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="c1"># token not in vocab</span>
+                        <span class="c1"># --&gt; skip this token</span>
+                        <span class="c1"># --&gt; continue with next token</span>
+                        <span class="k">continue</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clip_counts</span><span class="p">:</span>
+                        <span class="n">features</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">features</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">features</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PolarityPredictorWithBagOfWords</span><span class="p">(</span><span class="n">PolarityPredictorWithBagOfWords_01</span><span class="p">):</span>
+ 
+    <span class="k">def</span> <span class="nf">get_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; create column vector with target labels</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># prepare target vector</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;pos&#39;</span><span class="p">:</span>
+                <span class="n">targets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">targets</span>
+
+    <span class="k">def</span> <span class="nf">train_model_on_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="naive-bayes">
+<h1>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">¶</a></h1>
+<p>These next few cells set up the baseline Naive Bayes model that we were supplied with</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="k">class</span> <span class="nc">PolarityPredictorBowNB</span><span class="p">(</span><span class="n">PolarityPredictorWithBagOfWords</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">train_model_on_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">):</span>
+        <span class="c1"># pass numpy array to sklearn to train NB</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">MultinomialNB</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">get_accuracy</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">get_confusion_matrix</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_features</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># use numpy to get predictions</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="c1"># restore labels</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">is_positive</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_positive</span><span class="p">:</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;neg&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">get_accuracy</span> <span class="ow">or</span> <span class="n">get_confusion_matrix</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="n">y_true</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_accuracy</span><span class="p">:</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_confusion_matrix</span><span class="p">:</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">retval</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">labels</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first functionality test</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">PolarityPredictorBowNB</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_first_predictions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">te_data</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">12</span><span class="p">):</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">te_data</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">document</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">te_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%4d</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span>
+            <span class="n">get_document_preview</span><span class="p">(</span><span class="n">document</span><span class="p">),</span>
+        <span class="p">))</span>
+    
+<span class="n">print_first_predictions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   0 pos neg films|adapted|from|comic|books|have|had|plenty|of|success|,|whether
+   1 pos pos every|now|and|then|a|movie|comes|along|from|a|suspect|studio|,|with
+   2 pos pos you&#39;ve|got|mail|works|alot|better|than|it|deserves|to|.|in|order|to|make
+   3 pos pos &quot;|jaws|&quot;|is|a|rare|film|that|grabs|your|attention|before|it|shows|you|a
+   4 pos neg moviemaking|is|a|lot|like|being|the|general|manager|of|an|nfl|team|in
+   5 pos pos on|june|30|,|1960|,|a|self-taught|,|idealistic|,|yet|pragmatic|,|young
+   6 pos pos apparently|,|director|tony|kaye|had|a|major|battle|with|new|line
+   7 pos pos one|of|my|colleagues|was|surprised|when|i|told|her|i|was|willing|to|see
+   8 pos pos after|bloody|clashes|and|independence|won|,|lumumba|refused|to|pander|to
+   9 pos pos the|american|action|film|has|been|slowly|drowning|to|death|in|a|sea|of
+  10 pos pos after|watching|&quot;|rat|race|&quot;|last|week|,|i|noticed|my|cheeks|were|sore
+  11 pos pos i&#39;ve|noticed|something|lately|that|i&#39;ve|never|thought|of|before|.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">confusion_matrix</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+    <span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">get_accuracy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">get_confusion_matrix</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.985
+[[100   0]
+ [  3  97]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>At this point I decided that the “accuracy” mettric that is used in the provided notebook should be improved upon as it can be a misleading value. Precision, Recall and F1 score are better for binary classification tasks as they allow us to account for imbalances in our datasets.</p>
+<p>The cell below contains the function that is used to evaluate model performance and I have edited it from the original so it now reports these additional metrics and its final output is F1 score rather than accuracy</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="n">accuracies</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">f1s</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fold</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">tr_data</span><span class="p">,</span> <span class="n">te_data</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Evaluating fold </span><span class="si">%d</span><span class="s1"> of </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">splits</span><span class="p">)))</span>
+            <span class="n">fold</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">tr_data</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">confusion_matrix</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">te_data</span><span class="p">,</span> <span class="n">get_accuracy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">get_confusion_matrix</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        
+        <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">confusion_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">confusion_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">confusion_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">prec</span> <span class="o">=</span> <span class="n">tp</span><span class="o">/</span><span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">tp</span><span class="o">/</span><span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">prec</span><span class="o">*</span><span class="n">rec</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">prec</span><span class="o">+</span><span class="n">rec</span><span class="p">)</span>
+        
+        <span class="n">accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+        <span class="n">f1s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy --&gt;&#39;</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision --&gt;&#39;</span><span class="p">,</span> <span class="n">prec</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Recall --&gt;&#39;</span><span class="p">,</span> <span class="n">rec</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;F1 --&gt;&#39;</span><span class="p">,</span> <span class="n">f1</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">accuracies</span><span class="p">))</span>
+    <span class="n">avg</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">f1s</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([(</span><span class="n">x</span><span class="o">-</span><span class="n">avg</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">accuracies</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">avg</span><span class="p">,</span> <span class="n">mse</span><span class="o">**</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">f1s</span><span class="p">),</span>
+            <span class="nb">max</span><span class="p">(</span><span class="n">f1s</span><span class="p">))</span>
+
+<span class="c1"># this takes about 3 minutes</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluating fold 1 of 10
+Accuracy --&gt; 0.795
+Precision --&gt; 0.82
+Recall --&gt; 0.780952380952381
+F1 --&gt; 0.8
+
+Evaluating fold 2 of 10
+Accuracy --&gt; 0.84
+Precision --&gt; 0.89
+Recall --&gt; 0.8090909090909091
+F1 --&gt; 0.8476190476190476
+
+Evaluating fold 3 of 10
+Accuracy --&gt; 0.84
+Precision --&gt; 0.86
+Recall --&gt; 0.8269230769230769
+F1 --&gt; 0.8431372549019608
+
+Evaluating fold 4 of 10
+Accuracy --&gt; 0.825
+Precision --&gt; 0.84
+Recall --&gt; 0.8155339805825242
+F1 --&gt; 0.8275862068965517
+
+Evaluating fold 5 of 10
+Accuracy --&gt; 0.835
+Precision --&gt; 0.85
+Recall --&gt; 0.8252427184466019
+F1 --&gt; 0.8374384236453202
+
+Evaluating fold 6 of 10
+Accuracy --&gt; 0.83
+Precision --&gt; 0.84
+Recall --&gt; 0.8235294117647058
+F1 --&gt; 0.8316831683168315
+
+Evaluating fold 7 of 10
+Accuracy --&gt; 0.84
+Precision --&gt; 0.87
+Recall --&gt; 0.8207547169811321
+F1 --&gt; 0.8446601941747572
+
+Evaluating fold 8 of 10
+Accuracy --&gt; 0.845
+Precision --&gt; 0.89
+Recall --&gt; 0.8165137614678899
+F1 --&gt; 0.8516746411483254
+
+Evaluating fold 9 of 10
+Accuracy --&gt; 0.785
+Precision --&gt; 0.83
+Recall --&gt; 0.7614678899082569
+F1 --&gt; 0.7942583732057417
+
+Evaluating fold 10 of 10
+Accuracy --&gt; 0.855
+Precision --&gt; 0.92
+Recall --&gt; 0.8141592920353983
+F1 --&gt; 0.863849765258216
+
+(0.8341907075166752, 0.02170123140569834, 0.7942583732057417, 0.863849765258216)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The average F1 score after 10 fold cross validation turned out to be <strong>0.834</strong></p>
+<p>The first step to try improve on this baseline was to use the same unchanged dataset with Logistic Regression instead of Naive Bayes</p>
+</div>
+<div class="section" id="logistic-regression">
+<h1>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h1>
+<p>I imported ScikitLearn’s Logistic Regression package for this step. First attempts to use this resulted in the model not converging for some of the 10 folds.</p>
+<p>This was due to the default iteration number being 100. Once I changed this to 1000 all 10 cross validation folds converged and I was able to get a true average F1 score for this model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="k">class</span> <span class="nc">PolarityPredictorBowLR</span><span class="p">(</span><span class="n">PolarityPredictorWithBagOfWords</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">train_model_on_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">):</span>
+        <span class="c1"># pass numpy array to sklearn to train Logistic Regression</span>
+        <span class="c1"># iterations set to 1000 as default of 100 didn&#39;t guarantee convergence with our data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">get_accuracy</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">get_confusion_matrix</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_features</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># use numpy to get predictions</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="c1"># restore labels</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">is_positive</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_positive</span><span class="p">:</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;neg&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">get_accuracy</span> <span class="ow">or</span> <span class="n">get_confusion_matrix</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="n">y_true</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_accuracy</span><span class="p">:</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_confusion_matrix</span><span class="p">:</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">retval</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">labels</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">PolarityPredictorBowLR</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluating fold 1 of 10
+Accuracy --&gt; 0.845
+Precision --&gt; 0.84
+Recall --&gt; 0.8484848484848485
+F1 --&gt; 0.8442211055276383
+
+Evaluating fold 2 of 10
+Accuracy --&gt; 0.875
+Precision --&gt; 0.9
+Recall --&gt; 0.8571428571428571
+F1 --&gt; 0.8780487804878048
+
+Evaluating fold 3 of 10
+Accuracy --&gt; 0.845
+Precision --&gt; 0.87
+Recall --&gt; 0.8285714285714286
+F1 --&gt; 0.848780487804878
+
+Evaluating fold 4 of 10
+Accuracy --&gt; 0.86
+Precision --&gt; 0.84
+Recall --&gt; 0.875
+F1 --&gt; 0.8571428571428572
+
+Evaluating fold 5 of 10
+Accuracy --&gt; 0.855
+Precision --&gt; 0.84
+Recall --&gt; 0.865979381443299
+F1 --&gt; 0.8527918781725888
+
+Evaluating fold 6 of 10
+Accuracy --&gt; 0.875
+Precision --&gt; 0.91
+Recall --&gt; 0.8504672897196262
+F1 --&gt; 0.8792270531400966
+
+Evaluating fold 7 of 10
+Accuracy --&gt; 0.865
+Precision --&gt; 0.84
+Recall --&gt; 0.8842105263157894
+F1 --&gt; 0.8615384615384616
+
+Evaluating fold 8 of 10
+Accuracy --&gt; 0.885
+Precision --&gt; 0.88
+Recall --&gt; 0.8888888888888888
+F1 --&gt; 0.8844221105527638
+
+Evaluating fold 9 of 10
+Accuracy --&gt; 0.84
+Precision --&gt; 0.89
+Recall --&gt; 0.8090909090909091
+F1 --&gt; 0.8476190476190476
+
+Evaluating fold 10 of 10
+Accuracy --&gt; 0.915
+Precision --&gt; 0.94
+Recall --&gt; 0.8952380952380953
+F1 --&gt; 0.9170731707317075
+
+(0.8670864952717844, 0.021568042840638336, 0.8442211055276383, 0.9170731707317075)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The average F1 score for Baseline Logistic Regression turned out to be <strong>0.867</strong> which was a nice increase on our Baseline Naive Bayes. The runtime was quite similar to the Naive Bayes too so there didn’t seem to be any downsides.</p>
+<p>The next implementation that I wanted to try out was using ScikitLearn’s Decision Tree algorithm.</p>
+</div>
+<div class="section" id="decision-tree">
+<h1>Decision Tree<a class="headerlink" href="#decision-tree" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="k">class</span> <span class="nc">PolarityPredictorBowDT</span><span class="p">(</span><span class="n">PolarityPredictorWithBagOfWords</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">train_model_on_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">):</span>
+        <span class="c1"># pass numpy array to sklearn to train Logistic Regression</span>
+        <span class="c1"># iterations set to 1000 as default of 100 didn&#39;t guarantee convergence with our data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">get_accuracy</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">get_confusion_matrix</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_features</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># use numpy to get predictions</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="c1"># restore labels</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">is_positive</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_positive</span><span class="p">:</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;neg&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">get_accuracy</span> <span class="ow">or</span> <span class="n">get_confusion_matrix</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="n">y_true</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_accuracy</span><span class="p">:</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_confusion_matrix</span><span class="p">:</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">retval</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">labels</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">PolarityPredictorBowDT</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluating fold 1 of 10
+Accuracy --&gt; 0.585
+Precision --&gt; 0.56
+Recall --&gt; 0.5894736842105263
+F1 --&gt; 0.5743589743589743
+
+Evaluating fold 2 of 10
+Accuracy --&gt; 0.615
+Precision --&gt; 0.6
+Recall --&gt; 0.6185567010309279
+F1 --&gt; 0.6091370558375634
+
+Evaluating fold 3 of 10
+Accuracy --&gt; 0.655
+Precision --&gt; 0.72
+Recall --&gt; 0.6371681415929203
+F1 --&gt; 0.6760563380281691
+
+Evaluating fold 4 of 10
+Accuracy --&gt; 0.595
+Precision --&gt; 0.59
+Recall --&gt; 0.5959595959595959
+F1 --&gt; 0.5929648241206029
+
+Evaluating fold 5 of 10
+Accuracy --&gt; 0.62
+Precision --&gt; 0.64
+Recall --&gt; 0.6153846153846154
+F1 --&gt; 0.6274509803921569
+
+Evaluating fold 6 of 10
+Accuracy --&gt; 0.53
+Precision --&gt; 0.47
+Recall --&gt; 0.5340909090909091
+F1 --&gt; 0.5
+
+Evaluating fold 7 of 10
+Accuracy --&gt; 0.675
+Precision --&gt; 0.69
+Recall --&gt; 0.6699029126213593
+F1 --&gt; 0.6798029556650246
+
+Evaluating fold 8 of 10
+Accuracy --&gt; 0.625
+Precision --&gt; 0.61
+Recall --&gt; 0.6288659793814433
+F1 --&gt; 0.6192893401015229
+
+Evaluating fold 9 of 10
+Accuracy --&gt; 0.55
+Precision --&gt; 0.56
+Recall --&gt; 0.5490196078431373
+F1 --&gt; 0.5544554455445545
+
+Evaluating fold 10 of 10
+Accuracy --&gt; 0.685
+Precision --&gt; 0.64
+Recall --&gt; 0.7032967032967034
+F1 --&gt; 0.6701570680628273
+
+(0.6103672982111396, 0.04801108018466082, 0.5, 0.6798029556650246)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The average F1 score for this was <strong>0.610</strong> which was quite a drop from the previous two.</p>
+<p>It also took noticeably longer time to complete the 10 folds so it seemed clear that this was definitely an inferior option.</p>
+<p>Next up was Support Vector Machine implementation.</p>
+</div>
+<div class="section" id="support-vector-machine">
+<h1>Support Vector Machine<a class="headerlink" href="#support-vector-machine" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+
+<span class="k">class</span> <span class="nc">PolarityPredictorBowSVM</span><span class="p">(</span><span class="n">PolarityPredictorWithBagOfWords</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">train_model_on_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">):</span>
+        <span class="c1"># pass numpy array to sklearn to train Logistic Regression</span>
+        <span class="c1"># iterations set to 1000 as default of 100 didn&#39;t guarantee convergence with our data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tr_features</span><span class="p">,</span> <span class="n">tr_targets</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">get_accuracy</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">get_confusion_matrix</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_features</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># use numpy to get predictions</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="c1"># restore labels</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">is_positive</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_positive</span><span class="p">:</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;neg&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">get_accuracy</span> <span class="ow">or</span> <span class="n">get_confusion_matrix</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="n">y_true</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_accuracy</span><span class="p">:</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_confusion_matrix</span><span class="p">:</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">retval</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">labels</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">PolarityPredictorBowSVM</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluating fold 1 of 10
+Accuracy --&gt; 0.85
+Precision --&gt; 0.9
+Recall --&gt; 0.8181818181818182
+F1 --&gt; 0.8571428571428572
+
+Evaluating fold 2 of 10
+Accuracy --&gt; 0.85
+Precision --&gt; 0.91
+Recall --&gt; 0.8125
+F1 --&gt; 0.8584905660377358
+
+Evaluating fold 3 of 10
+Accuracy --&gt; 0.825
+Precision --&gt; 0.86
+Recall --&gt; 0.8037383177570093
+F1 --&gt; 0.8309178743961353
+
+Evaluating fold 4 of 10
+Accuracy --&gt; 0.855
+Precision --&gt; 0.84
+Recall --&gt; 0.865979381443299
+F1 --&gt; 0.8527918781725888
+
+Evaluating fold 5 of 10
+Accuracy --&gt; 0.845
+Precision --&gt; 0.83
+Recall --&gt; 0.8556701030927835
+F1 --&gt; 0.8426395939086294
+
+Evaluating fold 6 of 10
+Accuracy --&gt; 0.865
+Precision --&gt; 0.89
+Recall --&gt; 0.8476190476190476
+F1 --&gt; 0.8682926829268293
+
+Evaluating fold 7 of 10
+Accuracy --&gt; 0.895
+Precision --&gt; 0.88
+Recall --&gt; 0.9072164948453608
+F1 --&gt; 0.8934010152284264
+
+Evaluating fold 8 of 10
+Accuracy --&gt; 0.885
+Precision --&gt; 0.9
+Recall --&gt; 0.8737864077669902
+F1 --&gt; 0.8866995073891626
+
+Evaluating fold 9 of 10
+Accuracy --&gt; 0.83
+Precision --&gt; 0.84
+Recall --&gt; 0.8235294117647058
+F1 --&gt; 0.8316831683168315
+
+Evaluating fold 10 of 10
+Accuracy --&gt; 0.9
+Precision --&gt; 0.93
+Recall --&gt; 0.8773584905660378
+F1 --&gt; 0.9029126213592233
+
+(0.8624971764878421, 0.02472318528044945, 0.8309178743961353, 0.9029126213592233)
+</pre></div>
+</div>
+</div>
+</div>
+<p>This was more like it. The average F1 score for Baseline SVM was <strong>0.862</strong>. It should be pointed out, however, that the SVM implementation took far longer than the previous ones.</p>
+<p>The overall takeaway at this point was that Decision Trees were not a good choice but that Naive Bayes, Logistic Regression and Support Vector Machine were all viable options with Logistic Regression leading the way.</p>
+<p>The next section details my attempt to add Negation Handling into the mix.</p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

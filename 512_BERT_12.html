@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BERT with 512 Max Sequence Length and 12 Epochs &#8212; CA4023 Assignment 3 - BERT Sentiment Analysis - John Weldon</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="BERT with Negation Handling" href="256_BERT_NEGATION.html" />
+    <link rel="prev" title="BERT with 512 Max Sequence Length" href="512_BERT.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/bert.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">CA4023 Assignment 3 - BERT Sentiment Analysis - John Weldon</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro.html">
+   OVERVIEW
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Baseline BERT
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="256_BERT.html">
+   BERT as given in assignment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="256_BERT.html#how-it-performs">
+   How it performs
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT with 512 sequence length
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="512_BERT.html">
+   BERT with 512 Max Sequence Length
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="512_BERT.html#how-it-performs">
+   How it performs
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT with 512 sequence length and 12 Epochs
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   BERT with 512 Max Sequence Length and 12 Epochs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#how-it-performs">
+   How it performs
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Baseline BERT with Negation
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="256_BERT_NEGATION.html">
+   BERT with Negation Handling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="256_BERT_NEGATION.html#how-it-performs">
+   How it performs
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT vs Assignment 2 Performance
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html">
+   Overview of all the BERT models vs the Assignment 2 models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html#what-do-all-three-models-struggle-with">
+   What do all three models struggle with?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html#common-errors-to-all-three-models">
+   Common Errors to all Three Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html#what-bert-gets-right-that-the-other-2-do-not">
+   What BERT gets right that the other 2 do not
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="BERT_Ass2.html#what-the-more-primitive-2-models-get-right-that-bert-does-not">
+   What the More Primitive 2 Models get Right that BERT does not
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Conclusion and Learning Outcomes
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="CONCLUSION.html">
+   Conclusion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="CONCLUSION.html#learning-outcome">
+   Learning Outcome
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/512_BERT_12.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/512_BERT_12.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   BERT with 512 Max Sequence Length and 12 Epochs
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-it-performs">
+   How it performs
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="bert-with-512-max-sequence-length-and-12-epochs">
+<h1>BERT with 512 Max Sequence Length and 12 Epochs<a class="headerlink" href="#bert-with-512-max-sequence-length-and-12-epochs" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For this next configuration, I have 512 as the max sequence length and the number of epochs has been doubled from 6 to 12. This was another large jump in training time and it took many hours to complete the 10 CV folds. Once more I saved the ten so I could use the performance evaluation functions that I had written to see how the model performed</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bert_512_12_files</span> <span class="o">=</span> <span class="p">[]</span>
+    
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">):</span>
+    <span class="n">bert_512_12_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;512_12_BERT/</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">_pred_512_12.txt&#39;</span><span class="p">)</span>    
+
+    
+<span class="n">c_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="s1">&#39;pred&#39;</span><span class="p">,</span><span class="s1">&#39;correct&#39;</span><span class="p">,</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+    
+<span class="n">df1_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+<span class="n">df2_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+<span class="n">df3_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+<span class="n">df4_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+<span class="n">df5_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+<span class="n">df6_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+<span class="n">df7_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+<span class="n">df8_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+<span class="n">df9_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+<span class="n">df10_512_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">c_names</span><span class="p">)</span>
+
+<span class="n">dataframes_512_12</span> <span class="o">=</span> <span class="p">[</span><span class="n">df1_512_12</span><span class="p">,</span><span class="n">df2_512_12</span><span class="p">,</span><span class="n">df3_512_12</span><span class="p">,</span><span class="n">df4_512_12</span><span class="p">,</span><span class="n">df5_512_12</span><span class="p">,</span><span class="n">df6_512_12</span><span class="p">,</span><span class="n">df7_512_12</span><span class="p">,</span><span class="n">df8_512_12</span><span class="p">,</span><span class="n">df9_512_12</span><span class="p">,</span><span class="n">df10_512_12</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_dfs</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">df_list</span><span class="p">):</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">dataframe</span> <span class="ow">in</span> <span class="n">df_list</span><span class="p">:</span>
+
+        <span class="c1">#dataframe = pd.DataFrame(columns=[&#39;index&#39;,&#39;gold&#39;,&#39;pred&#39;,&#39;correct&#39;,&#39;text&#39;])</span>
+        <span class="n">processed_lines</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">tokens</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="n">line_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+                <span class="n">temp_line</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="n">line_length</span><span class="p">)):</span>
+                    <span class="n">temp_line</span> <span class="o">=</span> <span class="n">temp_line</span> <span class="o">+</span> <span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
+
+                <span class="n">processed_line</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokens</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">tokens</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">tokens</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">temp_line</span><span class="p">]</span>
+                <span class="n">processed_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">processed_line</span><span class="p">)</span>
+                <span class="n">dataframe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">=</span> <span class="n">processed_line</span>
+                <span class="n">count</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataframes_512_12</span> <span class="o">=</span> <span class="n">create_dfs</span><span class="p">(</span><span class="n">bert_512_12_files</span><span class="p">,</span> <span class="n">dataframes_512_12</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_f1</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+    <span class="n">true_pos</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">true_neg</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">false_pos</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">false_neg</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">corrects</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">:</span>
+            <span class="n">corrects</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pos&#39;</span> <span class="ow">and</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pos&#39;</span><span class="p">):</span>
+            <span class="n">true_pos</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pos&#39;</span> <span class="ow">and</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;neg&#39;</span><span class="p">):</span>
+            <span class="n">false_neg</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;neg&#39;</span> <span class="ow">and</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;neg&#39;</span><span class="p">):</span>
+            <span class="n">true_neg</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;neg&#39;</span> <span class="ow">and</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pos&#39;</span><span class="p">):</span>
+            <span class="n">false_pos</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">corrects</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">true_pos</span><span class="o">/</span><span class="p">(</span><span class="n">true_pos</span> <span class="o">+</span> <span class="n">false_pos</span><span class="p">)</span>
+    <span class="n">recall</span> <span class="o">=</span> <span class="n">true_pos</span><span class="o">/</span><span class="p">(</span><span class="n">true_pos</span> <span class="o">+</span> <span class="n">false_neg</span><span class="p">)</span>
+    <span class="n">f1_score</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">((</span><span class="n">precision</span><span class="o">*</span><span class="n">recall</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">))</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span><span class="n">precision</span><span class="p">,</span><span class="n">recall</span><span class="p">,</span><span class="n">f1_score</span><span class="p">,</span><span class="n">errors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_averages</span><span class="p">(</span><span class="n">df_list</span><span class="p">):</span>
+    <span class="n">accuracies</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">precs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">recs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">f1s</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">errors_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">dataframe</span> <span class="ow">in</span> <span class="n">df_list</span><span class="p">:</span>    
+        <span class="n">true_pos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">true_neg</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">false_pos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">false_neg</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">corrects</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">:</span>
+                <span class="n">corrects</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pos&#39;</span> <span class="ow">and</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pos&#39;</span><span class="p">):</span>
+                <span class="n">true_pos</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pos&#39;</span> <span class="ow">and</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;neg&#39;</span><span class="p">):</span>
+                <span class="n">false_neg</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;neg&#39;</span> <span class="ow">and</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;neg&#39;</span><span class="p">):</span>
+                <span class="n">true_neg</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;neg&#39;</span> <span class="ow">and</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pos&#39;</span><span class="p">):</span>
+                <span class="n">false_pos</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">corrects</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
+        <span class="n">accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+        
+        <span class="n">precision</span> <span class="o">=</span> <span class="n">true_pos</span><span class="o">/</span><span class="p">(</span><span class="n">true_pos</span> <span class="o">+</span> <span class="n">false_pos</span><span class="p">)</span>
+        <span class="n">precs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span>
+
+        <span class="n">recall</span> <span class="o">=</span> <span class="n">true_pos</span><span class="o">/</span><span class="p">(</span><span class="n">true_pos</span> <span class="o">+</span> <span class="n">false_neg</span><span class="p">)</span>
+        <span class="n">recs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recall</span><span class="p">)</span>
+        
+        <span class="n">f1_score</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">((</span><span class="n">precision</span><span class="o">*</span><span class="n">recall</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">))</span>
+        <span class="n">f1s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f1_score</span><span class="p">)</span>
+        
+        <span class="n">errors_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+        
+    <span class="k">return</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">accuracies</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">),</span><span class="nb">sum</span><span class="p">(</span><span class="n">precs</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">),</span><span class="nb">sum</span><span class="p">(</span><span class="n">recs</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">),</span><span class="nb">sum</span><span class="p">(</span><span class="n">f1s</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">),</span> <span class="n">errors_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_averages_get_errors</span><span class="p">(</span><span class="n">dataframes</span><span class="p">,</span> <span class="n">errorlist</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="n">acc</span><span class="p">,</span><span class="n">prec</span><span class="p">,</span><span class="n">rec</span><span class="p">,</span><span class="n">f1</span><span class="p">,</span><span class="n">errors</span> <span class="o">=</span> <span class="n">get_averages</span><span class="p">(</span><span class="n">dataframes</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">errorlist</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dataframe</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataframes</span><span class="p">):</span>
+            <span class="n">scores</span> <span class="o">=</span> <span class="n">get_f1</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cross validation </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The accuracy is </span><span class="si">{</span><span class="n">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The precision is </span><span class="si">{</span><span class="n">scores</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The recall is </span><span class="si">{</span><span class="n">scores</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The F1 score is </span><span class="si">{</span><span class="n">scores</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The model got the following rows wrong </span><span class="si">{</span><span class="n">scores</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The average accuracy is </span><span class="si">{</span><span class="n">acc</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The average precision is </span><span class="si">{</span><span class="n">prec</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The average recall is </span><span class="si">{</span><span class="n">rec</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The average F1 score is </span><span class="si">{</span><span class="n">f1</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="how-it-performs">
+<h1>How it performs<a class="headerlink" href="#how-it-performs" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">print_averages_get_errors</span><span class="p">(</span><span class="n">dataframes_512_12</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cross validation 1
+The accuracy is 93.50%
+The precision is 95.79%
+The recall is 91.00%
+The F1 score is 93.33%
+The model got the following rows wrong [1, 4, 10, 24, 25, 44, 50, 82, 91, 118, 135, 157, 171]
+
+Cross validation 2
+The accuracy is 92.50%
+The precision is 92.08%
+The recall is 93.00%
+The F1 score is 92.54%
+The model got the following rows wrong [9, 18, 59, 62, 88, 93, 94, 104, 115, 125, 137, 142, 167, 177, 189]
+
+Cross validation 3
+The accuracy is 93.00%
+The precision is 90.57%
+The recall is 96.00%
+The F1 score is 93.20%
+The model got the following rows wrong [8, 30, 50, 99, 100, 107, 111, 121, 133, 137, 142, 156, 162, 178]
+
+Cross validation 4
+The accuracy is 92.50%
+The precision is 92.93%
+The recall is 92.00%
+The F1 score is 92.46%
+The model got the following rows wrong [7, 14, 21, 34, 70, 83, 94, 98, 105, 109, 120, 128, 131, 159, 181]
+
+Cross validation 5
+The accuracy is 88.50%
+The precision is 89.69%
+The recall is 87.00%
+The F1 score is 88.32%
+The model got the following rows wrong [0, 19, 20, 26, 30, 35, 36, 37, 51, 55, 67, 77, 98, 100, 109, 130, 144, 155, 162, 172, 189, 192, 199]
+
+Cross validation 6
+The accuracy is 93.50%
+The precision is 97.80%
+The recall is 89.00%
+The F1 score is 93.19%
+The model got the following rows wrong [2, 7, 34, 39, 41, 45, 63, 80, 85, 90, 99, 133, 171]
+
+Cross validation 7
+The accuracy is 90.50%
+The precision is 89.32%
+The recall is 92.00%
+The F1 score is 90.64%
+The model got the following rows wrong [6, 27, 32, 42, 43, 44, 49, 93, 100, 102, 109, 117, 118, 126, 145, 171, 177, 185, 197]
+
+Cross validation 8
+The accuracy is 90.00%
+The precision is 87.74%
+The recall is 93.00%
+The F1 score is 90.29%
+The model got the following rows wrong [35, 58, 61, 74, 89, 90, 92, 104, 109, 119, 129, 131, 132, 134, 135, 142, 169, 185, 196, 197]
+
+Cross validation 9
+The accuracy is 91.50%
+The precision is 96.63%
+The recall is 86.00%
+The F1 score is 91.01%
+The model got the following rows wrong [16, 19, 25, 40, 41, 50, 55, 56, 59, 76, 81, 82, 84, 93, 101, 103, 145]
+
+Cross validation 10
+The accuracy is 95.00%
+The precision is 95.92%
+The recall is 94.00%
+The F1 score is 94.95%
+The model got the following rows wrong [7, 29, 32, 40, 47, 63, 112, 121, 127, 141]
+
+The average accuracy is 92.05%
+The average precision is 92.85%
+The average recall is 91.30%
+The average F1 score is 91.99%
+</pre></div>
+</div>
+</div>
+</div>
+<p>The average accuracy has jumped once again, from 91.15% to 92.05%. This isnt as big an increase but it’s still almost 1 full percentage point, and this configuration ultimately turned out to be the very best performing one across both assignments</p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="512_BERT.html" title="previous page">BERT with 512 Max Sequence Length</a>
+    <a class='right-next' id="next-link" href="256_BERT_NEGATION.html" title="next page">BERT with Negation Handling</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
