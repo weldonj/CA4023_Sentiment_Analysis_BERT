@@ -1,0 +1,1175 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baseline Setup &#8212; CA4023 Assignment 3 - BERT Sentiment Analysis - John Weldon</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Testing Optimal Model on Hidden Set" href="TestOnHiddenSet.html" />
+    <link rel="prev" title="Bigrams with Negation Handling" href="Bigram-NegationHandling.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/bert.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">CA4023 Assignment 3 - BERT Sentiment Analysis - John Weldon</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro.html">
+   OVERVIEW
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT with 512 sequence length
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html">
+   Negation Handling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html#decision-tree">
+   Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Negation.html#support-vector-machine">
+   Support Vector Machine
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT with 512 sequence length and 12 Epochs
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html">
+   Bigram Implementation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html#decision-tree">
+   Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram.html#support-vector-machine">
+   Support Vector Machine
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT vs Naive Bayes
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Trigram.html">
+   Trigram Implementation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Trigram.html#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Trigram.html#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  BERT vs Logistic Regression
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html">
+   Bigrams with Negation Handling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html#logistic-regression">
+   Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html#decision-tree">
+   Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bigram-NegationHandling.html#support-vector-machine">
+   Support Vector Machine
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Overall Results
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   <em>
+    Baseline Setup
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#negation-handling-implemented">
+   <em>
+    Negation Handling Implemented
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#bigrams-instead-of-unigrams">
+   <em>
+    Bigrams instead of Unigrams
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#trigram">
+   <em>
+    Trigram
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#bigrams-with-negation-handling">
+   <em>
+    Bigrams with Negation Handling
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#lexicon">
+   <em>
+    Lexicon
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#all-model-comparison">
+   <em>
+    All Model Comparison
+   </em>
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Conclusion and Learning Outcomes
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="TestOnHiddenSet.html">
+   Testing Optimal Model on Hidden Set
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/Results.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Results.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   <em>
+    Baseline Setup
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naive-bayes">
+     Naive Bayes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logistic-regression">
+     Logistic Regression
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decision-tree">
+     Decision Tree
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#support-vector-machine">
+     Support Vector Machine
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#negation-handling-implemented">
+   <em>
+    Negation Handling Implemented
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Naive Bayes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Logistic Regression
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Decision Tree
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Support Vector Machine
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bigrams-instead-of-unigrams">
+   <em>
+    Bigrams instead of Unigrams
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     Naive Bayes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     Logistic Regression
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     Decision Tree
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     Support Vector Machine
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trigram">
+   <em>
+    Trigram
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     Naive Bayes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     Logistic Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bigrams-with-negation-handling">
+   <em>
+    Bigrams with Negation Handling
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     Naive Bayes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     Logistic Regression
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     Decision Tree
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     Support Vector Machine
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lexicon">
+   <em>
+    Lexicon
+   </em>
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#all-model-comparison">
+   <em>
+    All Model Comparison
+   </em>
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="p">;</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcdefaults</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">show_comparison</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span><span class="n">performance</span><span class="p">,</span><span class="n">title</span><span class="p">):</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">objects</span>
+    <span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">))</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">performance</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">performance</span><span class="p">,</span><span class="n">objects</span><span class="p">),</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">_</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">performance</span><span class="p">,</span><span class="n">objects</span><span class="p">),</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">performance</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;F1 Score&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="baseline-setup">
+<h1><em>Baseline Setup</em><a class="headerlink" href="#baseline-setup" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="naive-bayes">
+<h2>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.83419</p></td>
+<td><p>0.0217</p></td>
+<td><p>0.7942</p></td>
+<td><p>0.8638</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="logistic-regression">
+<h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.867</p></td>
+<td><p>0.0215</p></td>
+<td><p>0.844</p></td>
+<td><p>0.917</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="decision-tree">
+<h2>Decision Tree<a class="headerlink" href="#decision-tree" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.610</p></td>
+<td><p>0.048</p></td>
+<td><p>0.5</p></td>
+<td><p>0.679</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="support-vector-machine">
+<h2>Support Vector Machine<a class="headerlink" href="#support-vector-machine" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.86</p></td>
+<td><p>0.02459</p></td>
+<td><p>0.825</p></td>
+<td><p>0.9</p></td>
+</tr>
+</tbody>
+</table>
+<p>Now it’s time to plot these results as bar charts in sorted order so we can get a quick idea of which algorithm has performed the best</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Naive Bayes&#39;</span><span class="p">,</span> <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">,</span> <span class="s1">&#39;Decision Tree&#39;</span><span class="p">,</span> <span class="s1">&#39;SVM&#39;</span><span class="p">)</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8341907075166752</span><span class="p">,</span><span class="mf">0.8670864952717844</span><span class="p">,</span><span class="mf">0.6103672982111396</span><span class="p">,</span><span class="mf">0.86</span><span class="p">]</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Baseline&#39;</span>
+<span class="n">show_comparison</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span><span class="n">performance</span><span class="p">,</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Results_7_0.png" src="_images/Results_7_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="negation-handling-implemented">
+<h1><em>Negation Handling Implemented</em><a class="headerlink" href="#negation-handling-implemented" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Naive Bayes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.8239</p></td>
+<td><p>0.0195</p></td>
+<td><p>0.788</p></td>
+<td><p>0.857</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id2">
+<h2>Logistic Regression<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.8639</p></td>
+<td><p>0.0226</p></td>
+<td><p>0.8349</p></td>
+<td><p>0.9126</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h2>Decision Tree<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.626</p></td>
+<td><p>0.044</p></td>
+<td><p>0.558</p></td>
+<td><p>0.6926</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h2>Support Vector Machine<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.862</p></td>
+<td><p>0.0243</p></td>
+<td><p>0.828</p></td>
+<td><p>0.904</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Naive Bayes&#39;</span><span class="p">,</span> <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">,</span> <span class="s1">&#39;Decision Tree&#39;</span><span class="p">,</span> <span class="s1">&#39;SVM&#39;</span><span class="p">)</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8239</span><span class="p">,</span><span class="mf">0.8639</span><span class="p">,</span><span class="mf">0.62637</span><span class="p">,</span><span class="mf">0.8624</span><span class="p">]</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Negation Handling Implemented&#39;</span>
+<span class="n">show_comparison</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span><span class="n">performance</span><span class="p">,</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Results_13_0.png" src="_images/Results_13_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="bigrams-instead-of-unigrams">
+<h1><em>Bigrams instead of Unigrams</em><a class="headerlink" href="#bigrams-instead-of-unigrams" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id5">
+<h2>Naive Bayes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.851</p></td>
+<td><p>0.018</p></td>
+<td><p>0.815</p></td>
+<td><p>0.88</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id6">
+<h2>Logistic Regression<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.836</p></td>
+<td><p>0.021</p></td>
+<td><p>0.79</p></td>
+<td><p>0.865</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id7">
+<h2>Decision Tree<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.5965</p></td>
+<td><p>0.0258</p></td>
+<td><p>0.55</p></td>
+<td><p>0.64</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id8">
+<h2>Support Vector Machine<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.7255</p></td>
+<td><p>0.0248</p></td>
+<td><p>0.69</p></td>
+<td><p>0.77</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Naive Bayes&#39;</span><span class="p">,</span> <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">,</span> <span class="s1">&#39;Decision Tree&#39;</span><span class="p">,</span> <span class="s1">&#39;SVM&#39;</span><span class="p">)</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.851</span><span class="p">,</span><span class="mf">0.836</span><span class="p">,</span><span class="mf">0.5965</span><span class="p">,</span><span class="mf">0.7255</span><span class="p">]</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Bigrams instead of Unigrams&#39;</span>
+<span class="n">show_comparison</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span><span class="n">performance</span><span class="p">,</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Results_19_0.png" src="_images/Results_19_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="trigram">
+<h1><em>Trigram</em><a class="headerlink" href="#trigram" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id9">
+<h2>Naive Bayes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.839</p></td>
+<td><p>0.01529</p></td>
+<td><p>0.815</p></td>
+<td><p>0.865</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id10">
+<h2>Logistic Regression<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.7745</p></td>
+<td><p>0.0265</p></td>
+<td><p>0.725</p></td>
+<td><p>0.815</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Naive Bayes&#39;</span><span class="p">,</span> <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">]</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.839</span><span class="p">,</span><span class="mf">0.775</span><span class="p">]</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Trigram&#39;</span>
+<span class="n">show_comparison</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span><span class="n">performance</span><span class="p">,</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Results_23_0.png" src="_images/Results_23_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="bigrams-with-negation-handling">
+<h1><em>Bigrams with Negation Handling</em><a class="headerlink" href="#bigrams-with-negation-handling" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id11">
+<h2>Naive Bayes<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.8435</p></td>
+<td><p>0.024</p></td>
+<td><p>0.802</p></td>
+<td><p>0.877</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id12">
+<h2>Logistic Regression<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.8304</p></td>
+<td><p>0.0179</p></td>
+<td><p>0.7920</p></td>
+<td><p>0.8640</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id13">
+<h2>Decision Tree<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.607</p></td>
+<td><p>0.024</p></td>
+<td><p>0.5297</p></td>
+<td><p>0.6603</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id14">
+<h2>Support Vector Machine<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+<th class="head"><p>Mean Square Error</p></th>
+<th class="head"><p>Minimum F1</p></th>
+<th class="head"><p>Maximum F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.777</p></td>
+<td><p>0.0565</p></td>
+<td><p>0.7509</p></td>
+<td><p>0.8065</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Naive Bayes&#39;</span><span class="p">,</span> <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">,</span> <span class="s1">&#39;Decision Tree&#39;</span><span class="p">,</span> <span class="s1">&#39;SVM&#39;</span><span class="p">]</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8435</span><span class="p">,</span><span class="mf">0.8304</span><span class="p">,</span><span class="mf">0.6070</span><span class="p">,</span><span class="mf">0.77738</span><span class="p">]</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Bigrams with Negation Handling&#39;</span>
+<span class="n">show_comparison</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span><span class="n">performance</span><span class="p">,</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Results_29_0.png" src="_images/Results_29_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="lexicon">
+<h1><em>Lexicon</em><a class="headerlink" href="#lexicon" title="Permalink to this headline">¶</a></h1>
+<p>The alternate approach of simply using a downloaded pre-built sentiment Lexicon (The Bing Liu Opinion Lexicon) gave the average
+F1 score of 0.814</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Average F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.814</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="all-model-comparison">
+<h1><em>All Model Comparison</em><a class="headerlink" href="#all-model-comparison" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Baseline NB&#39;</span><span class="p">,</span> <span class="s1">&#39;Baseline LR&#39;</span><span class="p">,</span> <span class="s1">&#39;Baseline DT&#39;</span><span class="p">,</span> <span class="s1">&#39;Baseline SVM&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;Negation NB&#39;</span><span class="p">,</span> <span class="s1">&#39;Negation LR&#39;</span><span class="p">,</span> <span class="s1">&#39;Negation DT&#39;</span><span class="p">,</span> <span class="s1">&#39;Negation SVM&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;Bigram NB&#39;</span><span class="p">,</span> <span class="s1">&#39;Bigram LR&#39;</span><span class="p">,</span> <span class="s1">&#39;Bigram DT&#39;</span><span class="p">,</span> <span class="s1">&#39;Bigram SVM&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;Trigram NB&#39;</span><span class="p">,</span> <span class="s1">&#39;Trigram LR&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;Bigram+Negation NB&#39;</span><span class="p">,</span> <span class="s1">&#39;Bigram+Negation LR&#39;</span><span class="p">,</span> <span class="s1">&#39;Bigram+Negation DT&#39;</span><span class="p">,</span> <span class="s1">&#39;Bigram+Negation SVM&#39;</span><span class="p">,</span> <span class="s1">&#39;Lexicon&#39;</span><span class="p">]</span>
+<span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">))</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.83419</span><span class="p">,</span><span class="mf">0.86704</span><span class="p">,</span><span class="mf">0.61036</span><span class="p">,</span><span class="mf">0.86</span><span class="p">,</span>
+               <span class="mf">0.8239</span><span class="p">,</span><span class="mf">0.8639</span><span class="p">,</span><span class="mf">0.62637</span><span class="p">,</span><span class="mf">0.8624</span><span class="p">,</span>
+               <span class="mf">0.851</span><span class="p">,</span><span class="mf">0.836</span><span class="p">,</span><span class="mf">0.5965</span><span class="p">,</span><span class="mf">0.7255</span><span class="p">,</span>
+               <span class="mf">0.839</span><span class="p">,</span><span class="mf">0.775</span><span class="p">,</span>
+               <span class="mf">0.8435</span><span class="p">,</span><span class="mf">0.8304</span><span class="p">,</span><span class="mf">0.6070</span><span class="p">,</span><span class="mf">0.77738</span><span class="p">,</span> <span class="mf">0.814</span><span class="p">]</span>
+<span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">performance</span><span class="p">,</span><span class="n">objects</span><span class="p">),</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">_</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">performance</span><span class="p">,</span><span class="n">objects</span><span class="p">),</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">performance</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;F1 Score&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;All Models Compared&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Results_32_0.png" src="_images/Results_32_0.png" />
+</div>
+</div>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Ranking</p></th>
+<th class="head"><p>Model</p></th>
+<th class="head"><p>F1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1:</p></td>
+<td><p>Baseline LR</p></td>
+<td><p>0.8670</p></td>
+</tr>
+<tr class="row-odd"><td><p>2:</p></td>
+<td><p>Negation LR</p></td>
+<td><p>0.8639</p></td>
+</tr>
+<tr class="row-even"><td><p>3:</p></td>
+<td><p>Negation SVM</p></td>
+<td><p>0.8624</p></td>
+</tr>
+<tr class="row-odd"><td><p>4:</p></td>
+<td><p>Baseline SVM</p></td>
+<td><p>0.86</p></td>
+</tr>
+<tr class="row-even"><td><p>5:</p></td>
+<td><p>Bigram NB</p></td>
+<td><p>0.851</p></td>
+</tr>
+<tr class="row-odd"><td><p>6:</p></td>
+<td><p>Bigram+Negation NB</p></td>
+<td><p>0.8435</p></td>
+</tr>
+<tr class="row-even"><td><p>7:</p></td>
+<td><p>Trigram NB</p></td>
+<td><p>0.839</p></td>
+</tr>
+<tr class="row-odd"><td><p>8:</p></td>
+<td><p>Bigram LR</p></td>
+<td><p>0.836</p></td>
+</tr>
+<tr class="row-even"><td><p><strong><em>9:</em></strong></p></td>
+<td><p><strong><em>Baseline NB</em></strong></p></td>
+<td><p><strong><em>0.83419</em></strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>10:</p></td>
+<td><p>Bigram+Negation LR</p></td>
+<td><p>0.8304</p></td>
+</tr>
+<tr class="row-even"><td><p>11:</p></td>
+<td><p>Negation NB</p></td>
+<td><p>0.8239</p></td>
+</tr>
+<tr class="row-odd"><td><p>12:</p></td>
+<td><p>Lexicon</p></td>
+<td><p>0.814</p></td>
+</tr>
+<tr class="row-even"><td><p>13:</p></td>
+<td><p>Bigram+Negation SVM</p></td>
+<td><p>0.77738</p></td>
+</tr>
+<tr class="row-odd"><td><p>14:</p></td>
+<td><p>Trigram LR</p></td>
+<td><p>0.775</p></td>
+</tr>
+<tr class="row-even"><td><p>15:</p></td>
+<td><p>Bigram SVM</p></td>
+<td><p>0.7255</p></td>
+</tr>
+<tr class="row-odd"><td><p>16:</p></td>
+<td><p>Negation DT</p></td>
+<td><p>0.62637</p></td>
+</tr>
+<tr class="row-even"><td><p>17:</p></td>
+<td><p>Baseline DT</p></td>
+<td><p>0.61036</p></td>
+</tr>
+<tr class="row-odd"><td><p>18:</p></td>
+<td><p>Bigram+Negation DT</p></td>
+<td><p>0.607</p></td>
+</tr>
+<tr class="row-even"><td><p>19:</p></td>
+<td><p>Bigram DT</p></td>
+<td><p>0.5965</p></td>
+</tr>
+</tbody>
+</table>
+<p>We can see that Logistic Regression turns out to be the best algorithm for our data set and use case. Interestingly the Baseline version of Logistic Regression with no extra steps seems to outperform any other. I’m not sure if this is due to a mistake in my implementation of Negation Handling and/or the switch to Bigrams. What was pleasing however, was that of the 18 aditional set ups that I implemented, 8 outperformed the Baseline Naive Bayes model that we were given.</p>
+<p>It’s clear that for the top 12 or so, there isn’t actually a huge difference in performance and all are perfectly viable options. Even the Lexicon set up, which doesn’t involve any real training on our end, performs well enough for our use case. The performance really only drops off signifcantly when we use Decision Trees, the four setups that use them take all four of the bottom slots and there’s a notable gap up to Bigram SVM in 15th place.</p>
+<p>In terms of algorithmic performance, SVM was by far the slowest with “Negation SVM” and “Bigram+Negation SVM” both taking almost 12 hours to train. With that in mind, even though two SVM models feature in the top 4 I would rule them out.</p>
+<p>Interestingly, while Bigram did improve the Naive Bayes set up vs. baseline, Trigram took away from performance, and was also incredibly slow. And so I would also rule it out as a viable option despite decent performance.</p>
+<p>Ultimately I see no real reason to move past the top 2 models in this performance chart, Baseline Logistic Regression and Logistic Regression with Negation Handling.</p>
+<p>One exception to this would be if we didn’t have any labelled data to train on in the first place. In this case the only viable option we would have from the options I’ve experimented with is the Lexicon set up. This doesn’t require any labelled data to train on as it is simply referencing a prebuilt sentiment Lexicon.</p>
+<p>In the next section I will detail how to use my implementation of Logistic Regression with the hidden data set.</p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="Bigram-NegationHandling.html" title="previous page">Bigrams with Negation Handling</a>
+    <a class='right-next' id="next-link" href="TestOnHiddenSet.html" title="next page">Testing Optimal Model on Hidden Set</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

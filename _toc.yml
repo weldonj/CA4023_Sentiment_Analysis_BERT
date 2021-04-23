@@ -1,0 +1,26 @@
+- file: Intro
+  title: INTRODUCTION AND DESCRIPTION
+
+- part: Baseline BERT
+  chapters:
+  - file: 256_BERT
+
+- part: BERT with 512 sequence length
+  chapters:
+  - file: 512_BERT
+
+- part: BERT with 512 sequence length and 12 Epochs
+  chapters:
+  - file: 512_BERT_12 
+
+- part: Baseline BERT with Negation
+  chapters:
+  - file: 256_BERT_NEGATION
+
+- part: BERT vs Assignment 2 Performance
+  chapters:
+  - file: BERT_Ass2
+
+- part: Conclusion and Learning Outcomes
+  chapters:
+  - file: CONCLUSION
