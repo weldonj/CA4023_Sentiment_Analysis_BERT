@@ -10,7 +10,7 @@ In this notebook I take a look at the BERT set up that we were given as part of 
 
 **BERT with 512 sequence length -**
 
-Here I increase the maximum sequence length from 256 to 512 and examine what impace this has on the performance, in terms of accuracy but also efficiency.
+Here I increase the maximum sequence length from 256 to 512 and examine what impact this has on the performance, in terms of accuracy but also efficiency.
 
 **BERT with 512 sequence length and 12 Epochs -**
 
