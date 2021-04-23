@@ -8,6 +8,10 @@ If a reviewer uses a lot of slang terms or just writes in an uncommon way, all t
 
 The trade off between quality and training time was an interesting one. It's difficult to decide what is the best choice for each use case, it would need to be considered by the user. The fastest version of the BERT model was still touching 90% accuracy, and far quicker to get through the 10 CV folds vs the the slowest version. It did come at the price of about 2 percentage points however. I would conclude that if time is not an issue, this latter version should be deployed but if the user is in any kind of a hurry, there is little harm in deploying the fastest version. The results will still be fairly excellent.
 
+If time or resources had allowed it, there were some further experiments that I wanted to run. I wanted to see the impact that increasing the batch size might have, but even moving from 10 to 12 was causing Colab to crash. I was also intrigued with the large version of BERT vs the base size that I was using but again I dind't have the resources for this on the free version of Colab. Perhaps Colab pro would grant enough compute to run these experiments.
+
 # Learning Outcome
 
-I felt that I learned a lot from this assignment. Like other assignments where we essentially have to dive in and get out hands dirty, it was impossible not to learn new and useful things. It was nice getting to see the advantage that we would expect BERT to have over the previous models actually manifest in reality. I feel that as a result of this assignment, I would be confident in implementing some useful language models in industry.
+I felt that I learned a lot from this assignment. Like other assignments where we essentially have to dive in and get out hands dirty, it was impossible not to learn new and useful things. It was nice getting to see the advantage that we would expect BERT to have over the previous models actually manifest in reality. 
+
+I feel that as a result of this assignment, I would be confident in implementing some useful language models in industry.
